@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>头条资讯 - 牛客网</title>
+    <link rel="stylesheet" type="text/css" href="../static/styles/bootstrap.min.css" th:href="@{/styles/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../static/styles/font-awesome.min.css" th:href="@{/styles/font-awesome.min.css}"/>
+
+    <link rel="stylesheet" media="all" href="../static/styles/style.css" th:href="@{/styles/style.css}"/>
+    <script type="text/javascript" src="../static/scripts/jquery.js" th:src="@{/scripts/jquery.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/base/base.js" th:src="@{/scripts/main/base/base.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/base/util.js" th:src="@{/scripts/main/base/util.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/base/event.js" th:src="@{/scripts/main/base/event.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/base/upload.js" th:src="@{/scripts/main/base/upload.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/component.js" th:src="@{/scripts/main/component/component.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/popup.js" th:src="@{/scripts/main/component/popup.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/popupLogin.js" th:src="@{/scripts/main/component/popupLogin.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/upload.js" th:src="@{/scripts/main/component/upload.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/popupUpload.js" th:src="@{/scripts/main/component/popupUpload.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/util/action.js" th:src="@{/scripts/main/util/action.js}"></script>
+
+</head>
+<body>
+<div th:replace="header::header(${user})" ></div>
+    <div th:inline="text" id="main">
+        <div class="container">
+            <ul th:each="conversation: ${conversations}" class="letter-list">
+                <li id="conversation-item-10005_622873">
+                    <a class="letter-link" th:href="'/msg/detail?conversationId='+${conversation.get('conversation').conversationId}"></a>
+                    <div class="letter-info">
+                        <span class="l-time">[[${#dates.format(conversation.get('conversation').createdDate,'yyyy年MM月dd日 HH:mm:ss')}]]</span>
+                        <div class="l-operate-bar">
+                            <a href="javascript:void(0);" class="sns-action-del" data-id="10005_622873">
+                            删除
+                            </a>
+                            <a th:href="'/msg/detail?conversationId='+${conversation.get('conversation').conversationId}">
+                                共[[${conversation.get('conversation').id}]]条会话
+                            </a>
+                        </div>
+                    </div>
+                    <div class="chat-headbox">
+                        <span class="msg-num">
+                            [[${conversation.get('unread')}]]
+                        </span>
+                        <a class="list-head" th:href="'/user/'+${conversation.get('user').id}">
+                            <img alt="头像" th:src="@{${conversation.get('user').headUrl}}"/>
+                        </a>
+                    </div>
+                    <div class="letter-detail">
+                        <a th:title="${conversation.get('user').name}" class="letter-name level-color-1">
+                            [[${conversation.get('user').name}]]
+                        </a>
+                        <p class="letter-brief">
+                            <a th:href="'/msg/detail?conversationId='+${conversation.get('conversation').conversationId}">
+                                [[${conversation.get('conversation').content}]]
+                            </a>
+                        </p>
+                    </div>
+                </li>
+
+            </ul>
+
+        </div>
+        <script type="text/javascript">
+          $(function(){
+
+            // If really is weixin
+            $(document).on('WeixinJSBridgeReady', function() {
+
+              $('.weixin-qrcode-dropdown').show();
+
+              var options = {
+                "img_url": "",
+                "link": "http://nowcoder.com/j/wt2rwy",
+                "desc": "",
+                "title": "读《Web 全栈工程师的自我修养》"
+              };
+
+              WeixinJSBridge.on('menu:share:appmessage', function (argv){
+                WeixinJSBridge.invoke('sendAppMessage', options, function (res) {
+                  // _report('send_msg', res.err_msg)
+                });
+              });
+
+              WeixinJSBridge.on('menu:share:timeline', function (argv) {
+                WeixinJSBridge.invoke('shareTimeline', options, function (res) {
+                  // _report('send_msg', res.err_msg)
+                });
+              });
+
+              // $(window).on('touchmove scroll', function() {
+              //   if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+              //     $('div.backdrop').show();
+              //     $('div.share-help').show();
+              //   } else {
+              //     $('div.backdrop').hide();
+              //     $('div.share-help').hide();
+              //   }
+              // });
+
+            });
+
+          })
+        </script>
+    </div>
+<div th:replace="footer::footer" ></div>
+</body>
+</html>

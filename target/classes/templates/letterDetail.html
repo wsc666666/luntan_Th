@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>头条资讯 - 牛客网</title>
+    <link rel="stylesheet" type="text/css" href="../static/styles/bootstrap.min.css" th:href="@{/styles/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../static/styles/font-awesome.min.css" th:href="@{/styles/font-awesome.min.css}"/>
+
+    <link rel="stylesheet" media="all" href="../static/styles/style.css" th:href="@{/styles/style.css}"/>
+    <script type="text/javascript" src="../static/scripts/jquery.js" th:src="@{/scripts/jquery.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/base/base.js" th:src="@{/scripts/main/base/base.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/base/util.js" th:src="@{/scripts/main/base/util.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/base/event.js" th:src="@{/scripts/main/base/event.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/base/upload.js" th:src="@{/scripts/main/base/upload.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/component.js" th:src="@{/scripts/main/component/component.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/popup.js" th:src="@{/scripts/main/component/popup.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/popupLogin.js" th:src="@{/scripts/main/component/popupLogin.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/upload.js" th:src="@{/scripts/main/component/upload.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/popupUpload.js" th:src="@{/scripts/main/component/popupUpload.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/util/action.js" th:src="@{/scripts/main/util/action.js}"></script>
+
+</head>
+<body>
+<div th:replace="header::header(${user})" ></div>
+    <div th:inline="text" id="main">
+        <div th:each="msg: ${messages}" class="container">
+            <ul class="letter-chatlist">
+                <li id="msg-item-4009580">
+            <a class="list-head" th:href="'/user/'+${msg.get('userId')}">
+            <img alt="头像" th:src="@{${msg.get('headUrl')}}"/>
+            </a>
+            <div class="tooltip fade right in">
+            <div class="tooltip-arrow"></div>
+            <div class="tooltip-inner letter-chat clearfix">
+            <div class="letter-info">
+            <p class="letter-time">[[${#dates.format(msg.get('message').createdDate,'yyyy年MM月dd日 HH:mm:ss')}]]</p>
+            <a href="javascript:void(0);" id="del-link" name="4009580">删除</a>
+            </div>
+            <p class="chat-content">
+                [[${msg.get('message').content}]]
+            </p>
+            </div>
+            </div>
+            </li>
+
+            </ul>
+
+        </div>
+        <script type="text/javascript">
+          $(function(){
+
+            // If really is weixin
+            $(document).on('WeixinJSBridgeReady', function() {
+
+              $('.weixin-qrcode-dropdown').show();
+
+              var options = {
+                "img_url": "",
+                "link": "http://nowcoder.com/j/wt2rwy",
+                "desc": "",
+                "title": "读《Web 全栈工程师的自我修养》"
+              };
+
+              WeixinJSBridge.on('menu:share:appmessage', function (argv){
+                WeixinJSBridge.invoke('sendAppMessage', options, function (res) {
+                  // _report('send_msg', res.err_msg)
+                });
+              });
+
+              WeixinJSBridge.on('menu:share:timeline', function (argv) {
+                WeixinJSBridge.invoke('shareTimeline', options, function (res) {
+                  // _report('send_msg', res.err_msg)
+                });
+              });
+
+              // $(window).on('touchmove scroll', function() {
+              //   if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+              //     $('div.backdrop').show();
+              //     $('div.share-help').show();
+              //   } else {
+              //     $('div.backdrop').hide();
+              //     $('div.share-help').hide();
+              //   }
+              // });
+
+            });
+
+          })
+        </script>
+    </div>
+    <div th:replace="footer::footer" ></div>
+</body>
+</html>

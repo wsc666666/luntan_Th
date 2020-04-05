@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>头条资讯 - 牛客网</title>
+    <link rel="stylesheet" type="text/css" href="../static/styles/bootstrap.min.css" th:href="@{/styles/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../static/styles/font-awesome.min.css" th:href="@{/styles/font-awesome.min.css}"/>
+
+    <link rel="stylesheet" media="all" href="../static/styles/style.css" th:href="@{/styles/style.css}"/>
+    <script type="text/javascript" src="../static/scripts/jquery.js" th:src="@{/scripts/jquery.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/base/base.js" th:src="@{/scripts/main/base/base.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/base/util.js" th:src="@{/scripts/main/base/util.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/base/event.js" th:src="@{/scripts/main/base/event.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/base/upload.js" th:src="@{/scripts/main/base/upload.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/component.js" th:src="@{/scripts/main/component/component.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/popup.js" th:src="@{/scripts/main/component/popup.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/popupLogin.js" th:src="@{/scripts/main/component/popupLogin.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/upload.js" th:src="@{/scripts/main/component/upload.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/popupUpload.js" th:src="@{/scripts/main/component/popupUpload.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/util/action.js" th:src="@{/scripts/main/util/action.js}"></script>
+
+</head>
+<div th:replace="header::header(${user})" ></div>
+<body>
+<div th:inline="text" id="main">
+    <div class="container">
+        <div class="post detail">
+
+            <div class="votebar">
+
+                <button th:if="vo.like gt '0'" class="click-like up pressed" th:id="${news.id}" data-id="" title="赞同"><i class="vote-arrow"></i><span class="count">[[${news.likeCount}]]</span></button>
+
+                <button th:if="vo.like le '0'" class="click-like up" th:id="${news.id}" data-id="" title="赞同"><i class="vote-arrow"></i><span class="count">[[${news.likeCount}]]</span></button>
+
+                <button th:if="vo.like lt '0'" class="click-dislike down pressed" th:id="${news.id}" data-id="" title="反对"><i class="vote-arrow"></i></button>
+
+                <button th:if="vo.like ge '0'" class="click-dislike down" th:id="${news.id}" data-id="" title="反对"><i class="vote-arrow"></i></button>
+
+            </div>
+
+            <div class="content">
+                <div >
+                    <img class="content-img" th:src="@{${news.image}}" src="" alt=""/>
+                </div>
+                <div class="content-main">
+                    <h3 class="title">
+                        <a target="_blank" rel="external nofollow" th:href="${news.link}" href="">[[${news.title}]]</a>
+                    </h3>
+                    <div class="meta">
+                        [[${news.link}]]
+                              <span>
+                                  <i class="fa icon-comment"></i> [[${news.commentCount}]]
+                              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="user-info">
+                <div class="user-avatar">
+                    <a th:href="'/user/'+${owner.id}" href=""><img width="32" class="img-circle" th:src="@{${owner.headUrl}}" src=""/></a>
+                </div>
+                <!--
+                <div class="info">
+                    <h5>分享者</h5>
+
+                    <a href="http://nowcoder.com/u/125701"><img width="48" class="img-circle" src="http://images.nowcoder.com/images/20141231/622873_1420036789276_622873_1420036771761_%E8%98%91%E8%8F%87.jpg@0e_200w_200h_0c_1i_1o_90Q_1x" alt="Thumb"></a>
+
+                    <h4 class="m-b-xs">影浅</h4>
+                    <a class="btn btn-default btn-xs" href="http://nowcoder.com/signin"><i class="fa icon-eye"></i> 关注TA</a>
+                </div>
+                -->
+            </div>
+
+            <div class="subject-name">来自 <a th:href="'/user/'+${owner.id}" href="">[[${owner.name}]]</a></div>
+        </div>
+
+
+        <div class="post-comment-form">
+
+            <span th:if="${user !=null}">评论 ([[${news.commentCount}]])</span>
+            <form method="post" action="/addComment">
+                <input name="newsId" type="hidden" th:value="${news.id}" />
+
+                <div class="form-group text required comment_content">
+                    <label class="text required sr-only">
+                        <abbr title="required">*</abbr> 评论</label>
+                    <textarea rows="5" class="text required comment-content form-control" name="content" id="content"></textarea>
+                </div>
+                <div class="text-right">
+                    <input type="submit" name="commit" value="提 交" class="btn btn-default btn-info"/>
+                </div>
+            </form>
+
+            <div th:if="${user ==null}" class="login-actions">
+                <a class="btn btn-success" href="/?pop=1">登录后评论</a>
+            </div>
+
+        </div>
+
+        <div id="comments" class="comments">
+            <div th:each="commentvo: ${comments}" class="media">
+                <a class="media-left" th:href="'/user/'+${commentvo.get('user').id}">
+                    <img th:src="@{${commentvo.get('user').headUrl}}"/>
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        <small class="date">[[${#dates.format(commentvo.get('comment').createdDate,'yyyy年MM月dd日 HH:mm:ss')}]]
+                        </small>
+                    </h4>
+                    <div>[[${commentvo.get('comment').content}]]</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <script type="text/javascript">
+          $(function(){
+
+            // If really is weixin
+            $(document).on('WeixinJSBridgeReady', function() {
+
+              $('.weixin-qrcode-dropdown').show();
+
+              var options = {
+                "img_url": "",
+                "link": "http://nowcoder.com/j/wt2rwy",
+                "desc": "",
+                "title": "读《Web 全栈工程师的自我修养》"
+              };
+
+              WeixinJSBridge.on('menu:share:appmessage', function (argv){
+                WeixinJSBridge.invoke('sendAppMessage', options, function (res) {
+                  // _report('send_msg', res.err_msg)
+                });
+              });
+
+              WeixinJSBridge.on('menu:share:timeline', function (argv) {
+                WeixinJSBridge.invoke('shareTimeline', options, function (res) {
+                  // _report('send_msg', res.err_msg)
+                });
+              });
+
+              // $(window).on('touchmove scroll', function() {
+              //   if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+              //     $('div.backdrop').show();
+              //     $('div.share-help').show();
+              //   } else {
+              //     $('div.backdrop').hide();
+              //     $('div.share-help').hide();
+              //   }
+              // });
+
+            });
+
+          })
+
+    </script>
+    <script type="text/javascript" src="/scripts/main/site/detail.js"></script>
+</div>
+<div th:replace="footer::footer" ></div>
+</body>
+</html>
