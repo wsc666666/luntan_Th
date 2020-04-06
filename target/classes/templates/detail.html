@@ -27,13 +27,13 @@
 
             <div class="votebar">
 
-                <button th:if="vo.like gt '0'" class="click-like up pressed" th:id="${news.id}" data-id="" title="赞同"><i class="vote-arrow"></i><span class="count">[[${news.likeCount}]]</span></button>
+                <button th:if="${like gt 0}" class="click-like up pressed" th:attr="data-id=${news.id}" data-id="" title="赞同"><i class="vote-arrow"></i><span class="count">[[${news.likeCount}]]</span></button>
 
-                <button th:if="vo.like le '0'" class="click-like up" th:id="${news.id}" data-id="" title="赞同"><i class="vote-arrow"></i><span class="count">[[${news.likeCount}]]</span></button>
+                <button th:unless="${like gt 0}" class="click-like up" th:attr="data-id=${news.id}" data-id="" title="赞同"><i class="vote-arrow"></i><span class="count">[[${news.likeCount}]]</span></button>
 
-                <button th:if="vo.like lt '0'" class="click-dislike down pressed" th:id="${news.id}" data-id="" title="反对"><i class="vote-arrow"></i></button>
+                <button th:if="${like lt 0}" class="click-dislike down pressed" th:attr="data-id=${news.id}" data-id="" title="反对"><i class="vote-arrow"></i></button>
 
-                <button th:if="vo.like ge '0'" class="click-dislike down" th:id="${news.id}" data-id="" title="反对"><i class="vote-arrow"></i></button>
+                <button th:unless="${like lt 0}"  class="click-dislike down" th:attr="data-id=${news.id}" data-id="" title="反对"><i class="vote-arrow"></i></button>
 
             </div>
 

@@ -64,8 +64,10 @@ public class HomeController {
         model.addAttribute("vos", getNews(0, 0, 10));
 
         if (hostHolder.getUser() != null) {
-            user = hostHolder.getUser();}
+            user = hostHolder.getUser();
+            pop=0;}
             model.addAttribute("user", user);
+
         model.addAttribute("pop",pop);
         return "home";
     }
