@@ -21,30 +21,38 @@
 </head>
 <body class="welcome_index">
 
+
 <header th:fragment="header(user)" class="navbar navbar-default navbar-static-top bs-docs-nav" id="top" role="banner">
     <div class="container">
         <div class="navbar-header">
-            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+
 
             <a href="/" class="navbar-brand logo">
-                <h1>头条资讯</h1>
-                <h3>你关心的才是头条</h3>
+                <img class="title_logo" alt="知乎" src="../static/images/img/zh_title.png" th:src="@{/images/img/zh_title.png}"/>
             </a>
         </div>
+        <nav class="collapse navbar-collapse bs-navbar-collapse navbar-left" role="navigation">
 
-        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav ">
+
+                <li  class=""><a href="javascript:void(0);">首页</a></li>
+                <li class=""><a href="">发现</a></li>
+                <li  class=""><a href="">等你来答</a></li>
+                <li   class="bar1">
+                    <form>
+                        <input type="text" placeholder="请输入您要搜索的内容..."/>
+                        <button type="submit"></button></form></li></ul>
+
+        </nav>
+
+        <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
 
             <ul class="nav navbar-nav navbar-right">
 
-                <li th:if="${user !=null}" class="js-share"><a href="javascript:void(0);">分享</a></li>
-                <li th:if="${user !=null}" class=""><a href="/msg/list">站内信</a></li>
+                <li th:if="${user !=null}" class="js-share" ><a href="javascript:void(0);"><img class="zh_edit" alt="提问" src="../static/images/img/zh_edit.png" th:src="@{/images/img/zh_edit.png}"/></a></li>
+                <li th:if="${user !=null}" ><a href="/msg/list"><img class="zh_duihua" alt="对话" src="../static/images/img/zh_duihua.png" th:src="@{/images/img/zh_duihua.png}"/></a></li>
                 <li th:if="${user !=null}" class=""><a th:href="'/user/'+${user.id}" th:text="${user.name}">用户名</a></li>
-                <li th:if="${user !=null}" class=""><a href="/logout/">退出</a></li>
+                <li th:if="${user !=null}" ><a href="/logout/"><img class="zh_edit" alt="退出" src="../static/images/img/exit.png" th:src="@{/images/img/exit.png}"/></a></li>
 
                 <li th:if="${ user ==null}" class="js-login"><a href="javascript:void(0);">登陆</a></li>
 

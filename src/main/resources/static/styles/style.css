@@ -1031,6 +1031,8 @@ body {
     width: auto;
     height: auto;
   }
+
+
   .navbar-nav {
     margin-top: 0;
     margin-bottom: 0;
@@ -1046,7 +1048,7 @@ body {
     margin-top: -5px;
   }
   .navbar-nav .open .dropdown-menu {
-    background-color: #fff;
+    background-color: #ffffff;
   }
   .navbar-form {
     margin-top: 0 !important;
@@ -5649,7 +5651,7 @@ body {
 
 /* line 37, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
 .container {
-  max-width: 800px;
+  max-width: 1030px;
 }
 
 /* line 44, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
@@ -5709,10 +5711,25 @@ footer a:hover, footer a:active {
 
 /* line 91, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
 header.navbar {
-  background: #3d444c;
+  height: 60px;
+  width: auto;
+  background: #ffffff;
   padding: 5px 0 5px 0;
-  color: #FFF;
+  color: #0084ff;
   box-shadow: 0px 1px 0px 0px rgba(83, 69, 64, 0.16), 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
+}
+/* */
+.title_logo {
+  width: 60%;
+  height: auto;
+}
+.zh_edit {
+  width: 70%;
+  height: auto;
+}
+.zh_duihua {
+  width: 80%;
+  height: auto;
 }
 /* line 100, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
 header.navbar .navbar-brand {
@@ -5724,7 +5741,7 @@ header.navbar .navbar-brand {
   /*background: url(/assets/logo-cf19f42eba7cd98c38a46a158aef1cd5.png) no-repeat 0 4px;*/
   background-size: 46px 46px;
   text-decoration: none;
-  color: #FFF;
+  color: #0084ff;
   opacity: 1;
 }
 /* line 112, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
@@ -5746,24 +5763,22 @@ header.navbar .navbar-brand h3 {
 }
 /* line 117, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
 header.navbar .navbar-brand:hover {
-  color: #FFF;
+  color: #2b2b2b;
 }
 /* line 120, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
-header.navbar form {
-  margin-top: 15px;
-}
+
 /* line 124, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
 header.navbar .navbar-nav {
   margin-top: 15px;
 }
 /* line 127, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
 header.navbar .navbar-nav > li > a {
-  color: #FFF;
+  color: #8590a6;
   padding: 7px 10px 5px;
 }
 /* line 132, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
 header.navbar .navbar-nav > li.active > a {
-  color: #FFF;
+  color: #2b2b2b;
   background-color: transparent;
 }
 /* line 138, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
@@ -5776,8 +5791,8 @@ header.navbar .nav > li > a:focus,
 header.navbar .nav > li.active > a,
 header.navbar .nav > li.active > a:hover {
   text-decoration: none;
-  color: #FFF;
-  border-color: #FFF;
+  color: #000000;
+  border-color: #ffffff;
   background-color: transparent;
 }
 /* line 150, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
@@ -6515,7 +6530,7 @@ header.navbar .navbar-toggle .icon-bar {
 @media (min-width: 992px) and (max-width: 1024px) {
   /* line 70, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/responsive.scss */
   .container {
-    width: 800px;
+    width: 1030px;
   }
 
   /* line 71, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/responsive.scss */
@@ -6527,7 +6542,7 @@ header.navbar .navbar-toggle .icon-bar {
 @media (min-width: 1024px) {
   /* line 75, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/responsive.scss */
   .container {
-    width: 800px;
+    width: 1030px;
   }
 
   /* line 76, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/responsive.scss */
@@ -7169,3 +7184,100 @@ textarea[readonly] {
     margin-left: 0;
 }
 /* popup-wrap end */
+
+.bar1 form {
+  position: absolute;
+  width: 250px;
+  margin-bottom: 0px;
+
+}
+
+.bar1 input, button {
+  border: none;
+  outline: none;
+}
+
+.bar1 input {
+  width: 100%;
+  height: 32px; padding-left: 13px;
+
+
+}
+
+.bar1 button {
+  height: 32px;
+  width: 32px;
+  cursor: pointer;
+  position: absolute;
+}
+.bar1 {background: #ffffff;
+  box-sizing: border-box;
+  padding: 0px 0;
+ }
+.bar1 input {
+  border: 1px solid #bdcae0;
+
+  background: rgba(246, 246, 246, 0.77);
+  color: #8590a6;
+}
+.bar1 button {
+  top: 0;
+  right: 0;
+  background: #0084ff;
+
+}
+.bar1 button:before {
+  content: "\f002";
+  font-family: FontAwesome;
+  font-size: 16px;
+  color: #F9F0DA;
+}
+
+.zh_top{
+  /* 设置宽度高度背景颜色 */
+  color: #000000;
+  height: auto; /*高度改为自动高度*/
+  width:30%;
+  margin-left: 0;
+  font-size: 16px;
+  background: rgb(255, 255, 255);
+  position: relative; /*固定在顶部*/
+  top: 0;/*离顶部的距离为0*/
+  margin-bottom: 5px;
+}
+.zh_top ul{
+  /* 清除ul标签的默认样式 */
+  width: auto;/*宽度也改为自动*/
+  list-style-type: none;
+  white-space:nowrap;
+  overflow: hidden;
+  margin-left: 5%;
+  /* margin-top: 0;          */
+  padding: 0;
+
+}
+.zh_top li {
+  float:left; /* 使li内容横向浮动，即横向排列  */
+  margin-right:2%;  /* 两个li之间的距离*/
+  position: relative;
+  overflow: hidden;
+}
+
+.zh_top li a{
+  /* 设置链接内容显示的格式*/
+  display: block; /* 把链接显示为块元素可使整个链接区域可点击 */
+  color: #000000;
+  text-align: center;
+  padding: 3px;
+  overflow: hidden;
+  text-decoration: none; /* 去除下划线 */
+
+}
+.zh_top li a:hover{
+   /* 鼠标选中时背景变为黑色 */
+   color: rgba(0, 132, 255, 0.73);
+ }
+
+.zh_active {
+  color: #0084ff !important;
+}

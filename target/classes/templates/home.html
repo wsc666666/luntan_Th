@@ -19,10 +19,18 @@
     <script type="text/javascript" src="../static/scripts/main/util/action.js" th:src="@{/scripts/main/util/action.js}"></script>
 
 </head>
-<body>
+<script>
+
+</script>
+<body style="background: rgba(246,246,246,0.73)">
 <div th:replace="header::header(${user})" ></div>
     <div th:inline="text" id="main">
-        <div class="container" id="daily">
+        <div class="container" id="daily" style="background: rgba(255,255,255,0.73)">
+          <div class="zh_top"> <ul class="">
+              <li  ><a href="#" class="zh_active" >推荐</a></li>
+              <li  ><a href="#">关注</a></li>
+              <li   ><a href="#">热榜</a></li>
+          </ul></div>
             <div class="jscroll-inner">
                 <div th:each="vo: ${vos}" class="daily">
                     <h3 class="date">
