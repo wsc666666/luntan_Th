@@ -60,7 +60,7 @@
         ActionUtil.like({
             newsId: sId,
             call: function (oResult) {
-                oEl.find('span.count').html(oResult.msg);
+                oEl.find('span.count').html('已赞同 '+oResult.msg);
                 oEl.addClass('pressed');
                 oEl.parent().find('.click-dislike').removeClass('pressed');
             },
@@ -88,7 +88,7 @@
                 oEl.addClass('pressed');
                 var oLikeBtn = oEl.parent().find('.click-like');
                 oLikeBtn.removeClass('pressed');
-                oLikeBtn.find('span.count').html(oResult.msg);
+                oLikeBtn.find('span.count').html('赞同 '+oResult.msg);
             },
             error: function () {
                 alert('出现错误，请重试');

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" style="background: rgba(246,246,246,0.73)">
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>头条资讯 - 牛客网</title>
+    <title>知乎</title>
     <link rel="stylesheet" type="text/css" href="../static/styles/bootstrap.min.css" th:href="@{/styles/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" href="../static/styles/font-awesome.min.css" th:href="@{/styles/font-awesome.min.css}"/>
 
@@ -22,37 +22,29 @@
 <script>
 
 </script>
-<body style="background: rgba(246,246,246,0.73)">
+<body>
 <div th:replace="header::header(${user})" ></div>
     <div th:inline="text" id="main">
-        <div class="container" id="daily" style="background: rgba(255,255,255,0.73)">
-          <div class="zh_top"> <ul class="">
+        <div class="container" id="daily" >
+            <div class="container_right">
+          <div class="zh_top"> <ul class="zh_ul_top">
               <li  ><a href="#" class="zh_active" >推荐</a></li>
               <li  ><a href="#">关注</a></li>
               <li   ><a href="#">热榜</a></li>
           </ul></div>
             <div class="jscroll-inner">
                 <div th:each="vo: ${vos}" class="daily">
-                    <h3 class="date">
+                    <h3 class="date" style="margin-top:0">
                         <i class="fa icon-calendar"></i>
-                        <span th:text="|头条资讯 ${#dates.createNow()}|"> </span>
+                        <span th:text="|问题 ${#dates.createNow()}|"> </span>
                     </h3>
 
 
                     <div class="posts">
 
                         <div class="post">
-                            <div class="votebar">
 
-                                <button th:if="${vo.get('like') gt 0}" class="click-like up pressed" th:attr="data-id=${vo.get('news').id}" data-id="" title="赞同"><i class="vote-arrow"></i><span class="count">[[${vo.get('news').likeCount}]]</span></button>
-
-                                <button th:unless="${vo.get('like') gt 0}" class="click-like up" th:attr="data-id=${vo.get('news').id}" data-id="" title="赞同"><i class="vote-arrow"></i><span class="count">[[${vo.get('news').likeCount}]]</span></button>
-
-                                <button th:if="${vo.get('like') lt 0}" class="click-dislike down pressed" th:attr="data-id=${vo.get('news').id}" data-id="" title="反对"><i class="vote-arrow"></i></button>
-
-                                <button th:unless="${vo.get('like') lt 0}"  class="click-dislike down" th:attr="data-id=${vo.get('news').id}" data-id="" title="反对"><i class="vote-arrow"></i></button>
-
-                            </div>
+                            <div class="zh_content">
                             <div class="content">
                                 <div >
                                     <img class="content-img" th:src="@{${vo.get('news').image}}" src="" alt=""/>
@@ -74,8 +66,45 @@
                                     <a th:href="'/user/'+${vo.get('user').id}+'/'" href=""><img width="32" class="img-circle" th:src="@{${vo.get('user').headUrl}}"/></a>
                                 </div>
                             </div>
-
                             <div class="subject-name">来自 <a th:text="${vo.get('user').name}" th:href="'/user/'+${vo.get('user').id}+'/'"></a></div>
+                            </div>
+                            <div class="pinlun">
+                            <div class="votebar">
+
+                                <button th:if="${vo.get('like') gt 0}" class="click-like up pressed" th:attr="data-id=${vo.get('news').id}" data-id="" title="赞同"><i class="vote-arrow"></i><span class="count">[[${'已赞同 '+vo.get('news').likeCount}]]</span></button>
+
+                                <button th:unless="${vo.get('like') gt 0}" class="click-like up" th:attr="data-id=${vo.get('news').id}" data-id="" title="赞同"><i class="vote-arrow"></i><span class="count">[[${'赞同 '+vo.get('news').likeCount}]]</span></button>
+
+                                <button th:if="${vo.get('like') lt 0}" class="click-dislike down pressed" th:attr="data-id=${vo.get('news').id}" data-id="" title="反对"><i class="vote-arrow"></i></button>
+
+                                <button th:unless="${vo.get('like') lt 0}"  class="click-dislike down" th:attr="data-id=${vo.get('news').id}" data-id="" title="反对"><i class="vote-arrow"></i></button>
+                                <div style="clear:both"></div>
+                            </div>
+                                <button class="zh_button">
+                                    <span>
+                                        <i class="juli icon-comment"></i>评论
+                                    </span>
+
+                                </button>
+                                <button class=" zh_button">
+                                    <span>
+                                        <i class="juli icon-star"></i>收藏
+                                    </span>
+
+                                </button>
+                                <button class="zh_button">
+                                    <span>
+                                        <i class="juli icon-share"></i>分享
+                                    </span>
+
+                                </button>
+                                <button class="zh_button">
+                                    <span>
+                                        <i class="juli icon-share"></i>分享
+                                    </span>
+
+                                </button>
+                            </div>
                         </div>
 
 
@@ -87,6 +116,8 @@
 
                 </div>
             </div>
+            </div>
+            <div class="user_tip"></div>
         </div>
 
     </div>

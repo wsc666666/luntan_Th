@@ -4,7 +4,7 @@
 
 
 html {
-  background-color: #f0f3f4;
+  background-color: #f6f6f6;
 }
 
 body {
@@ -13,7 +13,7 @@ body {
   -webkit-font-smoothing: antialiased;
   line-height: 1.42857143;
   color: #58666e;
-  background-color: transparent;
+  background-color:rgba(246,246,246,0.73);
 }
 
 *:focus {
@@ -5049,7 +5049,7 @@ a.text-#000000:hover {
 
 /* line 7, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/posts.scss */
 .post {
-  border-bottom: 1px dashed #e3ecec;
+
   padding-left: 5px;
   position: relative;
 }
@@ -5641,7 +5641,7 @@ html {
 /* line 29, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
 body {
   padding-bottom: 115px;
-  background-color: #FFF;
+  background-color: #f6f6f6;
 }
 
 /* line 35, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
@@ -5661,7 +5661,7 @@ form {
 
 /* line 48, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
 #main {
-  margin: 20px auto;
+  margin: 15px auto;
 }
 
 /* line 52, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
@@ -5837,7 +5837,8 @@ header.navbar .navbar-toggle .icon-bar {
 
 /* line 184, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
 .daily {
-  margin-bottom: 30px;
+  border-bottom: 2px solid #f6f6f6;
+ background: rgba(255,255,255,0.73);
 }
 /* line 187, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
 .daily h3.date {
@@ -6551,12 +6552,18 @@ header.navbar .navbar-toggle .icon-bar {
     max-width: 124px;
   }
 }
-
+.pinlun {
+  margin-left:30px ;
+  margin-right: 18px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 /*赞成and反对*/
 .votebar {
-    float: left;
-    margin-right: 18px;
-    margin-top: 5px;
+  display: inline-block;
+  position: relative;
+  top: 7px;
+
 }
 .votebar.keep-top{
     position: fixed;
@@ -6564,70 +6571,77 @@ header.navbar .navbar-toggle .icon-bar {
 }
 .votebar .up,
 .votebar .down {
-    background: #eff6fa;
+    float: left;
+    background: #e5f2ff;
     border: none;
     border-radius: 3px;
-    color: #25bb9b;
+    color: #0084ff;
     cursor: pointer;
     display: block;
     font-weight: 500;
-    height: 24px;
+    height: 32px;
     line-height: 24px;
     position: relative;
-    width: 38px;
+    width: 100px;
     outline: none;
 }
-.votebar .up {
-    height: 44px;
-}
+
 .votebar .label {
     display: block;
     text-indent: -9999em;
 }
 .votebar .count {
-    left: 0;
+    float:left;
+    left: 5px;
     position: absolute;
-    top: 18px;
-    top: 10px\9;
-    *top: 18px;
+    top: 5px;
     width: 100%;
     /*line-height: 22px;*/
     display: block;
 }
 .votebar .vote-arrow {
     display: inline-block;
+    float: left;
     border: 6px solid transparent;
     font-size: 0;
     height: 0;
     width: 0;
 }
 .votebar .up .vote-arrow {
-    border-bottom-color: #25bb9b;
+    border-bottom-color: #0083fe;
     border-top-style: solid;
     border-top-width: 0;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
 }
 .votebar .up:hover .vote-arrow,
 .votebar .up.pressed .vote-arrow {
     border-bottom-color: #FFF;
+
 }
 .votebar .down .vote-arrow {
     border-bottom-width: 0;
-    border-top-color: #25bb9b;
+    border-top-color: #0084ff;
+    margin-left: 8px;
 }
 .votebar .down:hover .vote-arrow,
 .votebar .down.pressed .vote-arrow {
     border-top-color: #fff;
+    margin-left: 8px;
 }
 .votebar .up:hover,
 .votebar .down:hover,
 .votebar .up.pressed,
 .votebar .down.pressed {
-    background: #25bb9b;
+    background: #0084ff;
     color: #fff;
+
 }
 .votebar .down {
-    margin: 5px 0 0;
+
+  width:40px;
+  margin-left: 5px;
+
+
 }
 .votebar .rcmd-label {
     color: #fff;
@@ -6637,7 +6651,18 @@ header.navbar .navbar-toggle .icon-bar {
     text-align: center;
     margin-top: 10px;
 }
-
+.zh_button{
+  background-color: #ffffff;
+  height: 32px;
+  width: 82px;
+  display: inline-block;
+  margin-left: 10px;
+  position: relative;
+  top:0;
+}
+.juli{
+  margin-right: 10px;
+}
 .letter-list {
     margin: -10px -20px 0;
 }
@@ -7236,14 +7261,14 @@ textarea[readonly] {
 .zh_top{
   /* 设置宽度高度背景颜色 */
   color: #000000;
-  height: auto; /*高度改为自动高度*/
-  width:30%;
+  height:60px; /*高度改为自动高度*/
+  width:100%;
   margin-left: 0;
   font-size: 16px;
   background: rgb(255, 255, 255);
   position: relative; /*固定在顶部*/
   top: 0;/*离顶部的距离为0*/
-  margin-bottom: 5px;
+  border-bottom: 2px solid #f6f6f6;
 }
 .zh_top ul{
   /* 清除ul标签的默认样式 */
@@ -7258,7 +7283,7 @@ textarea[readonly] {
 }
 .zh_top li {
   float:left; /* 使li内容横向浮动，即横向排列  */
-  margin-right:2%;  /* 两个li之间的距离*/
+  margin-right:4%;  /* 两个li之间的距离*/
   position: relative;
   overflow: hidden;
 }
@@ -7280,4 +7305,19 @@ textarea[readonly] {
 
 .zh_active {
   color: #0084ff !important;
+}
+
+
+.user_tip {
+  float: left;
+  width: 30%;
+  height: 700px;
+  border:1px dotted LightSkyBlue;
+}
+.container_right{
+  float: left;
+  width:70%;
+}
+.zh_ul_top{
+  line-height: 60px;
 }
