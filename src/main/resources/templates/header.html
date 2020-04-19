@@ -28,20 +28,20 @@
 
 
             <a href="/" class="navbar-brand logo">
-                <img class="title_logo" alt="知乎" src="../static/images/img/zh_title.png" th:src="@{/images/img/zh_title.png}"/>
+                <i class="zh_logo">道乎</i>
             </a>
         </div>
         <nav class="collapse navbar-collapse bs-navbar-collapse navbar-left" role="navigation">
 
-            <ul class="nav navbar-nav ">
+            <ul class="nav navbar-nav zh_ul">
 
-                <li  class=""><a href="javascript:void(0);">首页</a></li>
+                <li  class="zh_active2"><a href="javascript:void(0);">首页</a></li>
                 <li class=""><a href="">发现</a></li>
                 <li  class=""><a href="">等你来答</a></li>
-                <li   class="bar1">
+                <li   class="bar1" id="input1">
                     <form>
-                        <input type="text" placeholder="请输入您要搜索的内容..."/>
-                        <button type="submit"></button></form></li></ul>
+                        <input  type="text" placeholder="请输入您要搜索的内容..."/>
+                        <button id="btn_input_1_1" type="submit"></button></form></li></ul>
 
         </nav>
 
@@ -49,8 +49,11 @@
 
             <ul class="nav navbar-nav navbar-right">
 
-                <li th:if="${user !=null}" class="js-share" ><a href="javascript:void(0);"><img class="zh_edit" alt="提问" src="../static/images/img/zh_edit.png" th:src="@{/images/img/zh_edit.png}"/></a></li>
-                <li th:if="${user !=null}" ><a href="/msg/list"><img class="zh_duihua" alt="对话" src="../static/images/img/zh_duihua.png" th:src="@{/images/img/zh_duihua.png}"/></a></li>
+                <li th:if="${user !=null}" class="js-share" ><a href="javascript:void(0);">
+                    <button type="button" class="zh_head_button">提问</button></a></li>
+                <li th:if="${user !=null}" >
+                    <span class="msg-num2">20</span>
+                    <a href="/msg/list"><img class="zh_duihua" alt="对话" src="../static/images/img/zh_duihua.png" th:src="@{/images/img/zh_duihua.png}"/></a></li>
                 <li th:if="${user !=null}" class=""><a th:href="'/user/'+${user.id}" th:text="${user.name}">用户名</a></li>
                 <li th:if="${user !=null}" ><a href="/logout/"><img class="zh_edit" alt="退出" src="../static/images/img/exit.png" th:src="@{/images/img/exit.png}"/></a></li>
 

@@ -34,39 +34,36 @@
           </ul></div>
             <div class="jscroll-inner">
                 <div th:each="vo: ${vos}" class="daily">
-                    <h3 class="date" style="margin-top:0">
-                        <i class="fa icon-calendar"></i>
-                        <span th:text="|问题 ${#dates.createNow()}|"> </span>
-                    </h3>
-
-
                     <div class="posts">
 
                         <div class="post">
 
                             <div class="zh_content">
                             <div class="content">
-                                <div >
+                                <div class="zh_h3">
+                                    <a target="_blank"  th:text="${vo.get('news').title}" rel="external nofollow" th:href="'/news/'+${vo.get('news').id}" href=""></a>
+                                </div>
+                                <div class="zh_con" >
+                                    <a th:href="'/news/'+${vo.get('news').id}" href="">
+                                <div style="display: inline-block" >
                                     <img class="content-img" th:src="@{${vo.get('news').image}}" src="" alt=""/>
                                 </div>
                                 <div class="content-main">
-                                    <h3 class="title">
-                                        <a target="_blank"  th:text="${vo.get('news').title}" rel="external nofollow" th:href="'/news/'+${vo.get('news').id}" href=""></a>
-                                    </h3>
-                                    <div class="meta">
+
+                                    <div class="meta js_zh_link">
                                         [[${vo.get('news').link}]]
-                                        <span>
-                                            <i class="fa icon-comment"></i> [[${vo.get('news').commentCount}]]
-                                        </span>
                                     </div>
                                 </div>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="user-info">
+                           <!-- <div class="user-info">
                                 <div class="user-avatar">
                                     <a th:href="'/user/'+${vo.get('user').id}+'/'" href=""><img width="32" class="img-circle" th:src="@{${vo.get('user').headUrl}}"/></a>
                                 </div>
                             </div>
                             <div class="subject-name">来自 <a th:text="${vo.get('user').name}" th:href="'/user/'+${vo.get('user').id}+'/'"></a></div>
+                            -->
                             </div>
                             <div class="pinlun">
                             <div class="votebar">
@@ -82,7 +79,7 @@
                             </div>
                                 <button class="zh_button">
                                     <span>
-                                        <i class="juli icon-comment"></i>评论
+                                        <i class="icon-comment"></i><a th:href="'/news/'+${vo.get('news').id}" href="">[[${' '+vo.get('news').commentCount+' 评论'}]]</a>
                                     </span>
 
                                 </button>
@@ -100,7 +97,7 @@
                                 </button>
                                 <button class="zh_button">
                                     <span>
-                                        <i class="juli icon-share"></i>分享
+                                        <i class="juli icon-heart"></i>喜欢
                                     </span>
 
                                 </button>
@@ -121,12 +118,20 @@
         </div>
 
     </div>
-
-
+<script type="text/javascript" src="../static/scripts/main/site/clamp.js" th:src="@{/scripts/main/site/clamp.js}"></script>
+<script th:inline="javascript">
+    var js_zh_link = document.getElementsByClassName('js_zh_link');
+    /*<![CDATA[*/
+    for(i=0;i<js_zh_link.length;i++){
+        $clamp(js_zh_link[i],{clamp:4,useNativeClamp:false,truncationChar:' ',
+            truncationHTML:'...<a class="full_text">查看全文<i class="icon-angle-down"></i></a>'})
+        /*]]>*/
+}
+</script>
 
 <script th:inline="javascript" th:if="${pop !=null}">
 window.loginpop = [[${pop}]];
-</script>
+</script >
 <script type="text/javascript" src="/scripts/main/site/home.js"></script>
 <div th:replace="footer::footer" ></div>
 </body>

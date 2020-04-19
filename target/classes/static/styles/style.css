@@ -5054,9 +5054,7 @@ a.text-#000000:hover {
   position: relative;
 }
 /* line 12, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/posts.scss */
-.post:hover .content {
-  background-color: rgba(225, 227, 230, 0.4);
-}
+
 /* line 15, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/posts.scss */
 .post:hover .summary a {
   color: black;
@@ -5122,7 +5120,7 @@ a.text-#000000:hover {
 /* line 83, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/posts.scss */
 .post .content {
   min-height: 85px;
-  margin: 4px 0 4px 50px;
+  margin: 4px 0 4px 30px;
   padding: 5px 85px 10px 0;
 }
 .content-img {
@@ -5133,7 +5131,10 @@ a.text-#000000:hover {
     overflow: hidden;
 }
 .content-main {
-    margin-left: 120px;
+  display: inline-block;
+    margin-left: 20px;
+  position: absolute;
+  top:5px;
 }
 /* line 89, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/posts.scss */
 .post .title {
@@ -5173,7 +5174,7 @@ a.text-#000000:hover {
   display: inline-block;
   margin-right: 10px;
   vertical-align: top;
-  color: #999;
+  color: #1a1a1a;
 }
 /* line 121, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/posts.scss */
 .post .meta a {
@@ -5724,7 +5725,7 @@ header.navbar {
   height: auto;
 }
 .zh_edit {
-  width: 70%;
+  width: 65%;
   height: auto;
 }
 .zh_duihua {
@@ -6660,6 +6661,9 @@ header.navbar .navbar-toggle .icon-bar {
   position: relative;
   top:0;
 }
+.zh_button:hover{
+  color: #000000;
+}
 .juli{
   margin-right: 10px;
 }
@@ -7241,6 +7245,7 @@ textarea[readonly] {
  }
 .bar1 input {
   border: 1px solid #bdcae0;
+  border-radius:0 4px 4px 0;
 
   background: rgba(246, 246, 246, 0.77);
   color: #8590a6;
@@ -7249,15 +7254,19 @@ textarea[readonly] {
   top: 0;
   right: 0;
   background: #0084ff;
+  border-radius:0 4px 4px 0;
 
 }
+
 .bar1 button:before {
   content: "\f002";
   font-family: FontAwesome;
   font-size: 16px;
   color: #F9F0DA;
 }
-
+.zh_ul{
+  font-size:16px!important;
+}
 .zh_top{
   /* 设置宽度高度背景颜色 */
   color: #000000;
@@ -7320,4 +7329,81 @@ textarea[readonly] {
 }
 .zh_ul_top{
   line-height: 60px;
+}
+
+.zh_h3{
+  color: #000000;
+  margin: 10px 0 ;
+  padding: 5px 0 5px 8px;
+
+}
+.zh_h3 a:visited{
+  color: #000000;
+}
+.zh_h3 a:hover{
+  color: #3e86a0;
+}
+.zh_h3 a{
+  font-size: 20px;
+  font-weight: bold;
+  height: 20px;
+  line-height: 20px;
+}
+.zh_con{
+  width:600px ;
+  height:90px ;
+  position: relative;
+}
+.full_text:hover{
+  color: rgba(62,134,160,0.75);
+}
+.full_text{
+  color: rgba(23, 81, 153, 0.75) !important;
+}
+.zh_head_button {
+  background-color: #0084ff; /* Green */
+  height:32px;
+  width: 56px;
+  position: absolute;
+  top:0;
+  right: 40px;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius:5px;
+}
+.msg-num2 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #e84a4a;
+  color: #FFF;
+  font-size:12px;
+  border:2px solid #ffffff;
+  border-radius: 50px;
+  line-height: 14px;
+  min-height: 14px;
+  outline: medium none;
+  padding: 0 4px;
+  text-align: center;
+  z-index: 10;
+}
+.zh_active2 a{
+  color: #000000!important;
+}
+.zh_logo {
+  font-size: 32px;
+  font-family: "楷体";
+  color: #0083fe;
+  width:200px;
+  height: 65px;
+  align:"center";
+  line-height:65px;
+  position: absolute;
+  top: 0px;
+  font-style: normal;
 }
