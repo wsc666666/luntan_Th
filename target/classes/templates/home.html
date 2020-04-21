@@ -50,9 +50,10 @@
                                 </div>
                                 <div class="content-main">
 
-                                    <div class="meta js_zh_link">
-                                        [[${vo.get('news').link}]]
+                                    <div class="meta js_zh_link" >
+                                        [[${#strings.abbreviate(vo.get('news').link,79)}]]<a class="full_text" th:if="${vo.get('length') gt 79}" th:href="'/news/'+${vo.get('news').id}" href="" >查看全文<i class="icon-angle-down"></i></a>
                                     </div>
+
                                 </div>
                                     </a>
                                 </div>
@@ -77,7 +78,7 @@
                                 <button th:unless="${vo.get('like') lt 0}"  class="click-dislike down" th:attr="data-id=${vo.get('news').id}" data-id="" title="反对"><i class="vote-arrow"></i></button>
                                 <div style="clear:both"></div>
                             </div>
-                                <button class="zh_button">
+                                <button class="zh_button zh_btn">
                                     <span>
                                         <i class="icon-comment"></i><a th:href="'/news/'+${vo.get('news').id}" href="">[[${' '+vo.get('news').commentCount+' 评论'}]]</a>
                                     </span>
@@ -124,7 +125,7 @@
     /*<![CDATA[*/
     for(i=0;i<js_zh_link.length;i++){
         $clamp(js_zh_link[i],{clamp:4,useNativeClamp:false,truncationChar:' ',
-            truncationHTML:'...<a class="full_text">查看全文<i class="icon-angle-down"></i></a>'})
+            truncationHTML:'...'})
         /*]]>*/
 }
 </script>

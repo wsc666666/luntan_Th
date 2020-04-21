@@ -186,6 +186,8 @@ a:hover .caret-white {
 .form-control {
   border-color: #cfdadd;
   border-radius: 2px;
+  width:94%;
+  margin-left: 3%;
 }
 
 .form-control,
@@ -1811,8 +1813,8 @@ fieldset[disabled] .btn-success.active {
 
 .btn-info {
   color: #ffffff !important;
-  background-color: #00BC9B;
-  border-color: #00BC9B;
+  background-color: #0084ff;
+  border-color: #0084ff;
 }
 
 .btn-info:hover,
@@ -1821,8 +1823,8 @@ fieldset[disabled] .btn-success.active {
 .btn-info.active,
 .open .dropdown-toggle.btn-info {
   color: #ffffff !important;
-  background-color: #00B091;
-  border-color: #00B091;
+  background-color: #0084ff;
+  border-color: #0084ff;
 }
 
 .btn-info:active,
@@ -1846,8 +1848,8 @@ fieldset[disabled] .btn-info:active,
 .btn-info.disabled.active,
 .btn-info[disabled].active,
 fieldset[disabled] .btn-info.active {
-  background-color: #00B091;
-  border-color: #00B091;
+  background-color: #0084ff;
+  border-color: #0084ff;
 }
 
 .btn-warning {
@@ -5061,7 +5063,7 @@ a.text-#000000:hover {
 }
 /* line 18, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/posts.scss */
 .post.detail {
-  margin-top: 80px;
+
 }
 /* line 21, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/posts.scss */
 .post.detail:hover {
@@ -5123,6 +5125,11 @@ a.text-#000000:hover {
   margin: 4px 0 4px 30px;
   padding: 5px 85px 10px 0;
 }
+.post .detail_content {
+  min-height: 85px;
+  margin: 0px 0 4px 30px;
+  padding: 5px 5px 10px 0;
+}
 .content-img {
     width: 100px;
     margin-right: 10px;
@@ -5130,12 +5137,25 @@ a.text-#000000:hover {
     height: 80px;
     overflow: hidden;
 }
+.detail_content_img{
+  width: 100px;
+  margin-right: 10px;
+  height: 80px;
+  overflow: hidden;
+
+}
 .content-main {
-  display: inline-block;
+  float: left;
     margin-left: 20px;
   position: absolute;
   top:5px;
+  left:120px;
 }
+.zh_content-main {
+  margin-left: 20px;
+
+}
+.zh_clearfloat{clear:both;height:0;font-size: 1px;line-height: 0px;}
 /* line 89, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/posts.scss */
 .post .title {
   text-overflow: ellipsis;
@@ -5176,10 +5196,35 @@ a.text-#000000:hover {
   vertical-align: top;
   color: #1a1a1a;
 }
+
+.user_name a {
+  font-size: 16px;
+  color: #000000;
+}
+
+.user_name a:visited{
+
+  color: #000000;
+}
+.detail_meta{
+  font-size: 16px;
+  margin-right: 10px;
+  vertical-align: top;
+  color: #1a1a1a;
+  line-height:32px;
+}
 /* line 121, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/posts.scss */
 .post .meta a {
-  color: #999;
-  font-size: 14px;
+  color: #1a1a1a;
+
+}
+.user_right{
+  margin-left: 5px;
+  float:left;
+}
+.introduce{
+  font-size: 12px;
+  color: #626262;
 }
 /* line 122, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/posts.scss */
 .post .meta span {
@@ -5200,6 +5245,13 @@ a.text-#000000:hover {
   font-size: 12px;
   text-align: center;
   line-height: 14px;
+}
+.user_head_thing{
+  float:left;
+}
+.user_head{
+  float:left;
+
 }
 /* line 135, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/posts.scss */
 .post .subject-name a {
@@ -6024,7 +6076,7 @@ header.navbar .navbar-toggle .icon-bar {
 /* ------------------------------------------- */
 /* line 329, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
 .comments {
-  margin: 20px 0;
+  margin: 20px 0 20px 20px;
 }
 /* line 331, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
 .comments .media {
@@ -6068,7 +6120,18 @@ header.navbar .navbar-toggle .icon-bar {
 .weixin-qrcode-dropdown .weixin-qrcode-img img {
   width: 132px;
 }
+.zh_container{
+  width:98%;
+  background-color: #ffffff;
 
+}
+.zh_detail{
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 1020px;
+}
 /* line 372, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
 .help-modal {
   margin: 0;
@@ -6660,6 +6723,9 @@ header.navbar .navbar-toggle .icon-bar {
   margin-left: 10px;
   position: relative;
   top:0;
+}
+.zh_btn{
+  width: 120px!important;
 }
 .zh_button:hover{
   color: #000000;
@@ -7319,13 +7385,17 @@ textarea[readonly] {
 
 .user_tip {
   float: left;
-  width: 30%;
+  width: 25%;
   height: 700px;
   border:1px dotted LightSkyBlue;
 }
 .container_right{
   float: left;
   width:70%;
+}
+.detail_right{
+  width: 70%;
+  float: left;
 }
 .zh_ul_top{
   line-height: 60px;
@@ -7349,9 +7419,28 @@ textarea[readonly] {
   height: 20px;
   line-height: 20px;
 }
+.zh_h1{
+  color: #000000;
+  font-size: 32px;
+  font-weight: bold;
+  height: 32px;
+  line-height: 32px;
+  padding: 5px 0 5px 10px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+
+}
+.user_content{
+  margin-bottom: 10px;
+}
 .zh_con{
   width:600px ;
   height:90px ;
+  position: relative;
+}
+.zh_con_detail{
+  width:600px ;
+  height:auto;
   position: relative;
 }
 .full_text:hover{
@@ -7396,7 +7485,7 @@ textarea[readonly] {
   color: #000000!important;
 }
 .zh_logo {
-  font-size: 32px;
+  font-size: 36px;
   font-family: "楷体";
   color: #0083fe;
   width:200px;
@@ -7405,5 +7494,19 @@ textarea[readonly] {
   line-height:65px;
   position: absolute;
   top: 0px;
+  left:260px;
   font-style: normal;
+}
+
+.post_top{
+  position: relative;
+  height: 60px;
+  width: 100%;
+  z-index: 999;
+}
+.post_top_active{
+  position: fixed;
+  top: 0;
+  left: 0px;
+  right: 0px;
 }

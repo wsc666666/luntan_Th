@@ -41,6 +41,8 @@ public class HomeController {
         List<ViewObject> vos = new ArrayList<>();
         for (News news : newsList) {
             ViewObject vo = new ViewObject();
+            int length=news.getLink().length();
+            vo.set("length",length);
             vo.set("news", news);
             vo.set("user", userService.getUser(news.getUserId()));
             if (localUserId != 0) {
