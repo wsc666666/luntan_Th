@@ -1,0 +1,209 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>道乎</title>
+    <link rel="stylesheet" type="text/css" href="../static/styles/bootstrap.min.css" th:href="@{/styles/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../static/styles/font-awesome.min.css" th:href="@{/styles/font-awesome.min.css}"/>
+
+    <link rel="stylesheet" media="all" href="../static/styles/style.css" th:href="@{/styles/style.css}"/>
+    <script type="text/javascript" src="../static/scripts/jquery.js" th:src="@{/scripts/jquery.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/base/base.js" th:src="@{/scripts/main/base/base.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/base/util.js" th:src="@{/scripts/main/base/util.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/base/event.js" th:src="@{/scripts/main/base/event.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/base/upload.js" th:src="@{/scripts/main/base/upload.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/component.js" th:src="@{/scripts/main/component/component.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/popup.js" th:src="@{/scripts/main/component/popup.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/popupLogin.js" th:src="@{/scripts/main/component/popupLogin.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/upload.js" th:src="@{/scripts/main/component/upload.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/popupUpload.js" th:src="@{/scripts/main/component/popupUpload.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/util/action.js" th:src="@{/scripts/main/util/action.js}"></script>
+
+    <script  type="text/javascript">
+        /*<![CDATA[*/
+        $(function(){
+            var regemail = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+            $("#email").blur(
+                function(){
+
+                    if(regemail.test($(this).val())){
+                        $("#v11").css("font-size","13px").css("color","#339933");
+                        $("#v11").html("邮箱正确！");
+                    }else{
+                        $("#v11").css("font-size","13px").css("color","#F00");
+                        $("#v11").html("请输入合法邮箱");
+                    }
+                }
+            );
+            $("#username1").blur(
+                function(){
+                    if($(this).val().length>0&&$(this).val().length<9){
+                        $("#v1").css("font-size","13px").css("color","#339933");
+                        $("#v1").html("昵称可用！");
+                    }else{
+                        $("#v1").css("font-size","13px").css("color","#F00");
+                        $("#v1").html("格式错误限制1-8长度！");
+                    }
+                }
+            );
+            $("#jc").blur(
+                function(){
+                    if($(this).val().length>=0&&$(this).val().length<16){
+                        $("#v22").css("font-size","13px").css("color","#339933");
+                        $("#v22").html("可用");
+                    }else{
+                        $("#v22").css("font-size","13px").css("color","#F00");
+                        $("#v22").html("格式错误限制0-15字符长度！");
+                    }
+                }
+            );
+            var reg=/^[0-9_a-zA-Z]{6,20}$/; //限制输入数字、字母、下划线，6-20长度，不能为空
+
+            $("#pwd").blur(
+                function(){
+                    if(reg.test($(this).val())){
+                        $("#v2").css("font-size","13px").css("color","#339933");
+                        $("#v2").html("密码可用！");
+                    }else{
+                        $("#v2").css("font-size","13px").css("color","#F00");
+                        $("#v2").html("密码不可用！限制数字、字母、下划线，6-20长度！");
+                    }
+                }
+            );
+
+            $("#pwd1").blur(
+                function(){
+                    if($("#pwd1").val()==$("#pwd").val()){
+                        $("#v3").css("font-size","13px").css("color","#339933");
+                        $("#v3").html("密码一致！");
+                    }else{
+                        $("#v3").css("font-size","13px").css("color","#F00");
+                        $("#v3").html("密码不一致！");
+                    }
+
+
+                }
+            );
+
+
+
+
+            $("#tijiao").click(
+
+                function(){
+
+                    if(regemail.test($("#email").val())
+                        &&$("#username1").val().length>0
+                        &&$("#username1").val().length<9
+                        &&$("#jc").val().length>=0
+                        &&$("#jc").val().length<16
+                        &&reg.test($("#pwd").val())
+                        &&$("#pwd1").val()==$("#pwd").val()){
+                        $.ajax({
+                            url: '/user/regist',
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                email: $("#email").val(),
+                                pwd: $("#pwd").val(),
+                                username1:$("#username1").val(),
+                                jc:$("#jc").val(),
+
+                            }
+                        }).done(function (oResult) {
+                            if (oResult.code === 0) {
+                          window.location.href="/";
+                            } else {
+                                if(oResult.msgname){
+                                    $("#v11").css("font-size","13px").css("color","#F00");
+                                    $("#v11").html(oResult.msgname);}
+                                if(oResult.msgpwd){
+                                    $("#v2").css("font-size","13px").css("color","#F00");
+                                    $("#v2").html(oResult.msgname);}
+                                if(oResult.msgusername1){
+                                    $("#v1").css("font-size","13px").css("color","#F00");
+                                    $("#v1").html(oResult.msgusername1);}
+                                if(oResult.msgjc){
+                                    $("#v22").css("font-size","13px").css("color","#F00");
+                                    $("#v22").html(oResult.msgjc);}
+                            }
+
+                        }).fail(function () {
+                            alert('出现错误，请重试');
+                        });
+                    }else{
+                        $("#v6").css("font-size","13px").css("color","#F00").css("text-align","center");
+                        $("#v6").html("请完善信息再注册！");
+                    }
+                }
+            );
+
+        });
+        /*]]>*/
+</script>
+    <style type="text/css">
+        *{margin:0px;padding:0px;}
+        #div1{background-color:#fff;padding: 15px 0px 10px 40px;}
+        #div1 a{color:#CC3333;}
+        #div1 a:visited{color:#CC3333;}
+        #div2{background: url("/images/img/register.jpg") -80px -150px no-repeat;}
+
+
+
+    </style>
+
+</head>
+
+<body>
+
+
+        <div style="width:100%">
+            <div id="div1">
+                <a href="/"><i class="zh_logo" style="left:250px;bottom:40px">道乎</i></a>
+                <span style="margin-left:350px;color:#333; font-weight:bold; font-size:20px">欢迎注册</span>
+                <span style="margin-left:600px;color:#333; font-weight:bold; font-size:14px">已有账号<a href="/?pop=1" style="margin-left:20px;">请登录</a></span>
+            </div>
+            <div id="div2">
+                <form action="/user/regsit" method="post" style="margin-left: 200px">
+                    <table width="511px" cellspacing="4px" cellpadding="1px" style="margin-left:100px;" >
+                        <tr>
+                            <td width="103" height="80" style="font-size:13px; font-weight:bold; color:white">请输入邮箱</td>
+                            <td colspan="2"><input type="email"  style="display:block; width:250px; height:35px; font-size:13px; color:#999" placeholder="填写邮箱"  id="email" name="email"/></td>
+                            <td width="112" id="v11">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="103" height="80" style="font-size:13px; font-weight:bold; color:white">请输入昵称</td>
+                            <td colspan="2"><input type="text"  style="display:block; width:250px; height:35px; font-size:13px; color:#999" placeholder="限制1~8位"  id="username1" name="username1"/></td>
+                            <td width="112" id="v1">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="103" height="80" style="font-size:13px; font-weight:bold; color:white">请输入一句话简称</td>
+                            <td colspan="2"><input type="text"  style="display:block; width:250px; height:35px; font-size:13px; color:#999" placeholder="限制0~15位"  id="jc" name="jc"/></td>
+                            <td width="112" id="v22">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td height="74"  style="font-size:13px; font-weight:bold; color:white">请输入密码</td>
+                            <td colspan="2"><input type="password" placeholder="限制数字、字母、下划线，6-20长度！"  style="display:block; width:250px; height:35px; font-size:13px; color:#999;" id="pwd" name="pwd"/></td>
+                            <td id="v2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td height="73"  style="font-size:13px; font-weight:bold; color:white" >再次输入密码</td>
+                            <td colspan="2"><input type="password" placeholder="限制数字、字母、下划线，6-20长度！"  style="display:block; width:250px; height:35px" id="pwd1"/></td>
+                            <td id="v3">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td height="44" colspan="4" style="font-size:13px"><input  type="checkbox" checked="checked"/>我已阅读并同意<a href="#">《道乎用户注册协议》</a></td>
+                        </tr>
+                        <tr>
+                            <td height="55" colspan="4"><div class="btn btn-info js-login" id="tijiao" style="margin-left:280px" href="javascript:void(0);">注册</div></td>
+                        </tr>
+                        <tr>
+                            <td height="49" colspan="4" id="v6">&nbsp;</td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+
+<div th:replace="footer::footer" ></div>
+</body>
+</html>

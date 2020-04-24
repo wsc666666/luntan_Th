@@ -25,12 +25,18 @@ public class UserService {
     @Autowired
     private LoginTicketDAO loginTicketDAO;
 
-    public Map<String, Object> register(String username, String password) {
+    public Map<String, Object> register(String username1,String username, String password,String jc) {
         Map<String, Object> map = new HashMap<String, Object>();
+        if (StringUtils.isBlank(username1)) {
+            map.put("msgname1", "昵称不能为空");
+            return map;
+        }
+
         if (StringUtils.isBlank(username)) {
             map.put("msgname", "用户名不能为空");
             return map;
         }
+
 
         if (StringUtils.isBlank(password)) {
             map.put("msgpwd", "密码不能为空");
@@ -46,8 +52,14 @@ public class UserService {
 
         // 密码强度
         user = new User();
+        if (StringUtils.isBlank(jc)) {
+            user.setJc("这个人很懒，什么也没留下~");
+        }
+        else{user.setJc(jc);}
         user.setName(username);
         user.setSalt(UUID.randomUUID().toString().substring(0, 5));
+        user.setZhName(username1);
+        user.setJc(jc);
         String head = String.format("http://images.nowcoder.com/head/%dt.png", new Random().nextInt(1000));
         user.setHeadUrl(head);
         user.setPassword(ToutiaoUtil.MD5(password+user.getSalt()));
@@ -106,6 +118,7 @@ public class UserService {
     public User getUser(int id) {
         return userDAO.selectById(id);
     }
+
 
     public void logout(String ticket) {
         loginTicketDAO.updateStatus(ticket, 1);

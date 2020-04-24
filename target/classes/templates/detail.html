@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>头条资讯 - 牛客网</title>
+    <title>道乎</title>
     <link rel="stylesheet" type="text/css" href="../static/styles/bootstrap.min.css" th:href="@{/styles/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" href="../static/styles/font-awesome.min.css" th:href="@{/styles/font-awesome.min.css}"/>
 
@@ -22,35 +22,34 @@
 <div th:replace="header::header(${user})" ></div>
 <body>
 <div th:inline="text" id="main">
-    <div class="container">
+    <div class="zh_detail">
+    <div class="detail_right">
+    <div class="zh_container">
         <div class="post detail">
 
             <div class="zh_content">
-                <div class="content">
-                    <div class="zh_h3">
-                        <a target="_blank"  th:text="${news.title}" rel="external nofollow" th:href="'/news/'+${news.id}" href=""></a>
+                <div class="detail_content">
+                    <div class="zh_h1" th:text="${news.title}">
                     </div>
-                    <div class="zh_con" >
-                        <a th:href="'/news/'+${news.id}" href="">
-                            <div style="display: inline-block" >
-                                <img class="content-img" th:src="@{${news.image}}" src="" alt=""/>
-                            </div>
-                            <div class="content-main">
-
-                                <div class="meta">
+                    <div class="zh_con_detail" >
+                            <div class="zh_content-main">
+                                <div class="user_content">
+                                    <div class="user_head"><a th:href="${'/user/'+owner.id}"><img width="32" class="img-circle" th:src="${owner.headUrl}"/></a></div>
+                                    <div class="user_right">
+                                        <div  class="user_name"><a th:href="${'/user/'+owner.id}">[[${owner.name}]]</a></div>
+                                        <div class="introduce">这个人很懒什么也没留下</div>
+                                    </div>
+                                    <div class="zh_clearfloat"></div>
+                                </div>
+                                <!--<img class="detail_content_img" th:src="@{${news.image}}" src="" alt=""/>-->
+                                <div class="detail_meta">
                                     [[${news.link}]]
                                 </div>
                             </div>
-                        </a>
+                           <div class="zh_clearfloat"></div>
                     </div>
                 </div>
-                <!-- <div class="user-info">
-                     <div class="user-avatar">
-                         <a th:href="'/user/'+${vo.get('user').id}+'/'" href=""><img width="32" class="img-circle" th:src="@{${vo.get('user').headUrl}}"/></a>
-                     </div>
-                 </div>
-                 <div class="subject-name">来自 <a th:text="${vo.get('user').name}" th:href="'/user/'+${vo.get('user').id}+'/'"></a></div>
-                 -->
+
             </div>
             <div class="pinlun">
                 <div class="votebar">
@@ -94,8 +93,8 @@
 
         <div class="post-comment-form">
 
-            <span th:if="${user !=null}">评论 ([[${news.commentCount}]])</span>
-            <form method="post" action="/addComment">
+            <span th:if="${user !=null}" style="margin-left: 20px">评论 ([[${news.commentCount}]])</span>
+            <form th:if="${user !=null}" method="post" action="/addComment">
                 <input name="newsId" type="hidden" th:value="${news.id}" />
 
                 <div class="form-group text required comment_content">
@@ -104,11 +103,11 @@
                     <textarea rows="5" class="text required comment-content form-control" name="content" id="content"></textarea>
                 </div>
                 <div class="text-right">
-                    <input type="submit" name="commit" value="提 交" class="btn btn-default btn-info"/>
+                    <input type="submit" name="commit" value="提 交" style="margin-right: 20px" class="btn btn-default btn-info"/>
                 </div>
             </form>
 
-            <div th:if="${user ==null}" class="login-actions">
+            <div th:if="${user ==null}" style="margin-bottom: 20px" class="login-actions">
                 <a class="btn btn-success" href="/?pop=1">登录后评论</a>
             </div>
 
@@ -129,7 +128,10 @@
             </div>
 
         </div>
-
+        </div>
+    </div>
+    <div class="user_tip"></div>
+    <div class="zh_clearfloat"></div>
     </div>
     <script type="text/javascript">
           $(function(){

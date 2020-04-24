@@ -9,6 +9,19 @@ public class User {
     private String password;
     private String salt;
     private String headUrl;
+    private String zhName;
+
+    public String getJc() {
+        return jc;
+    }
+
+    public void setJc(String jc) {
+        this.jc = jc;
+    }
+
+    private String jc;
+
+
 
     public User() {
 
@@ -18,6 +31,7 @@ public class User {
         this.password = "";
         this.salt = "";
         this.headUrl = "";
+        this.zhName="";
     }
 
     public String getName() {
@@ -58,5 +72,12 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+    public String getZhName() {
+        return zhName;
+    }
+
+    public void setZhName(String zhName) {
+        this.zhName = zhName;
     }
 }

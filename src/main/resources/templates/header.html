@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>头条资讯 - 牛客网</title>
+    <title>道乎</title>
     <link rel="stylesheet" type="text/css" href="../static/styles/bootstrap.min.css" th:href="@{/styles/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" href="../static/styles/font-awesome.min.css" th:href="@{/styles/font-awesome.min.css}"/>
 
@@ -47,14 +47,14 @@
 
         <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
 
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right " style="margin-right: 30px">
 
                 <li th:if="${user !=null}" class="js-share" ><a href="javascript:void(0);">
                     <button type="button" class="zh_head_button">提问</button></a></li>
                 <li th:if="${user !=null}" >
                     <span class="msg-num2">20</span>
                     <a href="/msg/list"><img class="zh_duihua" alt="对话" src="../static/images/img/zh_duihua.png" th:src="@{/images/img/zh_duihua.png}"/></a></li>
-                <li th:if="${user !=null}" class=""><a th:href="'/user/'+${user.id}" th:text="${user.name}">用户名</a></li>
+                <li th:if="${user !=null}" class=""><a th:href="'/user/'+${user.id}" th:text="${user.zhName}">用户名</a></li>
                 <li th:if="${user !=null}" ><a href="/logout/"><img class="zh_edit" alt="退出" src="../static/images/img/exit.png" th:src="@{/images/img/exit.png}"/></a></li>
 
                 <li th:if="${ user ==null}" class="js-login"><a href="javascript:void(0);">登陆</a></li>

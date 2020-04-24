@@ -7385,13 +7385,14 @@ textarea[readonly] {
 
 .user_tip {
   float: left;
-  width: 25%;
+  width: 30%;
   height: 700px;
+  margin-left: 10px;
   border:1px dotted LightSkyBlue;
 }
 .container_right{
   float: left;
-  width:70%;
+  width:68%;
 }
 .detail_right{
   width: 70%;
@@ -7455,7 +7456,7 @@ textarea[readonly] {
   width: 56px;
   position: absolute;
   top:0;
-  right: 40px;
+  right: 60px;
   border: none;
   color: white;
   padding: 6px 12px;
@@ -7509,4 +7510,125 @@ textarea[readonly] {
   top: 0;
   left: 0px;
   right: 0px;
+}
+.tip_1_1{
+  width: 50px;
+  height: 50px;
+  background: #e1f1ff;
+  border-radius: 25px;
+}
+.tip_1_2{
+  width: 50px;
+  height: 50px;
+  background: #fff3e2;
+  border-radius: 25px;
+}
+.tip_1_3{
+  width: 50px;
+  height: 50px;
+  background: #fef9e2;
+  border-radius: 25px;
+}
+.tip_1_4{
+  width: 50px;
+  height: 50px;
+  background: #e5f7f7;
+  border-radius: 25px;
+}
+.tip_content{
+  float: left;
+  margin-left:18px;
+  margin-top: 20px;
+  position: relative;
+}
+.tip_2{
+  margin-top: 10px;
+  text-align:center;
+}
+.img_center{
+  position: relative;
+  top: 13px;
+  left: 13px;
+  width: 50%;
+  height: 50%;
+}
+.user_tip_top{
+  background-color: #ffffff;
+  margin-bottom: 1px;
+}
+.tip_content1{
+  float: left;
+  width: 50%;
+  text-align:center;
+  height:60px;
+  line-height:60px;
+
+
+}
+.tip_content2{
+  float: left;
+  width: 50%;
+  text-align:center;
+  height:65px;
+  line-height:35px;
+
+
+}
+.user_tip_top1,
+.user_tip_top2 {
+  background-color: #ffffff;
+  margin-bottom: 1px;
+}
+.user-infos{
+  text-align:center;
+  height:60px;
+  line-height:60px;
+}
+.tip_top2_1{
+  text-align:center;
+  height:60px;
+  line-height:60px;
+  font-size: 16px;
+  border-bottom: #f4f4f5 solid 1px;
+
+
+}
+.user_tip a{
+  color: #58666e;
+}
+.user_tip_top2 {
+  margin-top:10px ;
+  position: relative;
+}
+.lv-style{
+  color: #0084ff;
+}
+.i-left{
+  position: absolute;
+  right: 10px;
+  top: 20px;
+}
+.tip_top2_3{
+  border-top: #f4f4f5 solid 10px;
+  font-size: 16px;
+  height: 250px;
+  line-height: 40px;
+}
+.tip_top2_3 li:hover{
+
+  background-color: #f6f6f6;
+}
+.tip_top2_3 ul li{
+  list-style-type:none;
+  position:relative;
+}
+.zh-num{
+  width: 30px;
+  height: 30px;
+  background-color: #f6f6f6;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  text-align:center;
+  line-height: 30px;
 }

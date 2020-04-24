@@ -39,10 +39,13 @@ public class LoginController {
     @ResponseBody
     public String reg(Model model, @RequestParam("username") String username,
                       @RequestParam("password") String password,
+                      @RequestParam("username1") String username1,
+                      @RequestParam("jc") String jc,
+
                       @RequestParam(value = "rember", defaultValue = "0") int rememberme,
                       HttpServletResponse response) {
         try {
-            Map<String, Object> map = userService.register(username, password);
+            Map<String, Object> map = userService.register(username1,username, password,jc);
             if (map.containsKey("ticket")) {
                 Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
                 cookie.setPath("/");

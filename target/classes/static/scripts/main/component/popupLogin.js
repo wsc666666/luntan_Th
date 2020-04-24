@@ -24,7 +24,7 @@
                     '<div class="form-group">',
                         '<div class="col-input-login">',
                             '<a class="btn btn-info js-login" href="javascript:void(0);">登陆</a>',
-                            '<a class="btn btn-info js-register" href="javascript:void(0);">注册</a>',
+                            '<a class="btn btn-link " href="/regist">注册&nbsp<i class="icon-double-angle-right"></i></a>',
                         '</div>',
                     '</div>',
                 '</div>',
@@ -37,6 +37,7 @@
                 var oEl = that.getEl();
                 that.emailIpt = oEl.find('div.js-email');
                 that.pwdIpt = oEl.find('div.js-pwd');
+                that.username1Ipt =oEl.find('div.js-username');
                 that.initCpn();
             }
         }, {
@@ -65,6 +66,7 @@
                     } else {
                         oResult.msgname && that.iptError(that.emailIpt, oResult.msgname);
                         oResult.msgpwd && that.iptError(that.pwdIpt, oResult.msgpwd);
+                        oResult.msgusername1 && that.iptError(that.username1Ipt, oResult.msgusername1);
                     }
                 }).fail(function () {
                     alert('出现错误，请重试');
@@ -95,6 +97,7 @@
                     } else {
                         oResult.msgname && that.iptError(that.emailIpt, oResult.msgname);
                         oResult.msgpwd && that.iptError(that.pwdIpt, oResult.msgpwd);
+                        oResult.msgusername1 && that.iptError(that.username1Ipt, oResult.msgusername1);
                     }
                 }).fail(function () {
                     alert('出现错误，请重试');
@@ -133,6 +136,7 @@
         var that = this;
         that.emailIpt.find('input').on('focus', Base.bind(that.iptNone, that, that.emailIpt));
         that.pwdIpt.find('input').on('focus', Base.bind(that.iptNone, that, that.pwdIpt));
+        that.username1Ipt.find('input').on('focus', Base.bind(that.iptNone, that, that.username1Ipt));
     }
 
     function fVal(oData) {
@@ -140,16 +144,19 @@
         var oEl = that.getEl();
         var oEmailIpt = that.emailIpt.find('input');
         var oPwdIpt = that.pwdIpt.find('input');
+        var oUsername1Ipt = that.username1Ipt.find('input');
         var oRemberChk = oEl.find('.js-rember');
         if (arguments.length === 0) {
             return {
                 email: $.trim(oEmailIpt.val()),
                 pwd: $.trim(oPwdIpt.val()),
+                username1: $.trim(oUsername1Ipt.val()),
                 rember: oRemberChk.prop('checked')
             };
         } else {
             oEmailIpt.val($.trim(oData.email));
             oPwdIpt.val($.trim(oData.pwd));
+            oUsername1Ipt.val($.trim(oData.username1));
             oRemberChk.prop('checked', !!oData.rember);
         }
     }
@@ -158,11 +165,11 @@
         var that = this;
         var oData = that.val();
         var bRight = true;
-        /*
+
         if (!Util.isEmail(oData.email)) {
             that.iptError(that.emailIpt, '请填写正确的邮箱');
             bRight = false;
-        }*/
+        }
         if (!oData.pwd) {
             that.iptError(that.pwdIpt, '密码不能为空');
             bRight = false;
