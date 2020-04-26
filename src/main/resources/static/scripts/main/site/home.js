@@ -1,3 +1,4 @@
+/*<![CDATA[*/
 (function (window, undefined) {
     var PopupLogin = Base.getClass('main.component.PopupLogin');
     var PopupUpload = Base.getClass('main.component.PopupUpload');
@@ -52,6 +53,12 @@
     }
 
     function fClickLike(oEvent) {
+        if (user1==null){
+            var e = document.createEvent("MouseEvents");
+            e.initEvent("click", true, true);
+            document.getElementById("js-login-1").dispatchEvent(e);
+            return false;}
+        else {
         var that = this;
         var oEl = $(oEvent.currentTarget);
         var sId = $.trim(oEl.attr('data-id'));
@@ -73,34 +80,42 @@
             always: function () {
                 that.actioning = false;
             }
-        });
+        });}
     }
 
     function fClickDisLike(oEvent) {
-        var that = this;
-        var oEl = $(oEvent.currentTarget);
-        var sId = $.trim(oEl.attr('data-id'));
-        // 已经操作过 || 不存在Id || 正在提交 ，则忽略
-        if (oEl.hasClass('pressed') || !sId || that.actioning) {
-            return;
-        }
-        that.actioning = true;
-        ActionUtil.dislike({
-            newsId: sId,
-            call: function (oResult) {
-                oEl.addClass('pressed');
-                var oLikeBtn = oEl.parent().find('.click-like');
-                oLikeBtn.removeClass('pressed');
-                oLikeBtn.find('span.count').html('赞同 '+oResult.msg);
-            },
-            error: function () {
-                alert('出现错误，请重试');
-            },
-            always: function () {
-                that.actioning = false;
+        if (user1 == null) {
+            var e = document.createEvent("MouseEvents");
+            e.initEvent("click", true, true);
+            document.getElementById("js-login-1").dispatchEvent(e);
+            return false;
+        } else {
+            var that = this;
+            var oEl = $(oEvent.currentTarget);
+            var sId = $.trim(oEl.attr('data-id'));
+            // 已经操作过 || 不存在Id || 正在提交 ，则忽略
+            if (oEl.hasClass('pressed') || !sId || that.actioning) {
+                return;
             }
-        });
+            that.actioning = true;
+            ActionUtil.dislike({
+                newsId: sId,
+                call: function (oResult) {
+                    oEl.addClass('pressed');
+                    var oLikeBtn = oEl.parent().find('.click-like');
+                    oLikeBtn.removeClass('pressed');
+                    oLikeBtn.find('span.count').html('赞同 ' + oResult.msg);
+                },
+                error: function () {
+                    alert('出现错误，请重试');
+                },
+                always: function () {
+                    that.actioning = false;
+                }
+            });
+        }
     }
 
 
 })(window);
+/*]]>*/

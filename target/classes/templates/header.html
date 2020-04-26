@@ -57,7 +57,7 @@
                 <li th:if="${user !=null}" class=""><a th:href="'/user/'+${user.id}" th:text="${user.zhName}">用户名</a></li>
                 <li th:if="${user !=null}" ><a href="/logout/"><img class="zh_edit" alt="退出" src="../static/images/img/exit.png" th:src="@{/images/img/exit.png}"/></a></li>
 
-                <li th:if="${ user ==null}" class="js-login"><a href="javascript:void(0);">登陆</a></li>
+                <li th:if="${ user ==null}" class="js-login" id="js-login-1"><a href="javascript:void(0);">登陆</a></li>
 
             </ul>
 

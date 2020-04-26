@@ -145,6 +145,7 @@ public class NewsController {
             news.setTitle(title);
             news.setImage(image);
             news.setLink(link);
+            System.out.println("tianjia************");
             if (hostHolder.getUser() != null) {
                 news.setUserId(hostHolder.getUser().getId());
             } else {

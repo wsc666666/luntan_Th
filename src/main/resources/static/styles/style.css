@@ -5223,8 +5223,16 @@ a.text-#000000:hover {
   float:left;
 }
 .introduce{
-  font-size: 12px;
+  font-size: 14px;
   color: #626262;
+}
+.u-introduce{
+  font-size: 16px;
+  color: #626262;
+}
+.u-ownername{
+  font-size: 20px;
+  color: #000000;
 }
 /* line 122, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/posts.scss */
 .post .meta span {
@@ -5716,6 +5724,8 @@ form {
 #main {
   margin: 15px auto;
 }
+#question-main {
+margin: 0px auto;}
 
 /* line 52, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/application.scss */
 footer {
@@ -6716,7 +6726,7 @@ header.navbar .navbar-toggle .icon-bar {
     margin-top: 10px;
 }
 .zh_button{
-  background-color: #ffffff;
+  background-color: #fdfdfd;
   height: 32px;
   width: 82px;
   display: inline-block;
@@ -7249,6 +7259,7 @@ textarea[readonly] {
     position: relative;
     width: 80px;
     height: 80px;
+  left: 150px;
 }
 .letter-pic-box img {
     width: 80px;
@@ -7275,8 +7286,12 @@ textarea[readonly] {
     -webkit-font-smoothing: antialiased;
 }
 .btn-upload {
-    margin-top: 47px;
-    margin-left: 0;
+    margin-top: 5px;
+    margin-left: 450px;
+}
+.btn-upload-2{
+  margin-top: 5px;
+  margin-left: 500px;
 }
 /* popup-wrap end */
 
@@ -7386,16 +7401,24 @@ textarea[readonly] {
 .user_tip {
   float: left;
   width: 30%;
+
+  margin-left: 10px;
+  border:1px solid #f2f2f2;
+}
+.user_tip3 {
+  background-color: #ffffff;
+  float: left;
+  width: 30%;
   height: 700px;
   margin-left: 10px;
-  border:1px dotted LightSkyBlue;
+  border:1px solid #eeeeee;
 }
 .container_right{
   float: left;
   width:68%;
 }
 .detail_right{
-  width: 70%;
+  width: 68%;
   float: left;
 }
 .zh_ul_top{
@@ -7611,8 +7634,12 @@ textarea[readonly] {
 .tip_top2_3{
   border-top: #f4f4f5 solid 10px;
   font-size: 16px;
-  height: 250px;
+  height: 290px;
   line-height: 40px;
+
+}
+.tip_top2_3 ul{
+  padding-left: 0;
 }
 .tip_top2_3 li:hover{
 
@@ -7631,4 +7658,242 @@ textarea[readonly] {
   top: 5px;
   text-align:center;
   line-height: 30px;
+  color: #58666e;
+  font-size: 14px;
+}
+.tip_top2_3 i{
+  margin-left: 40px;
+}
+.zh-num-2{
+  width: 30px;
+  height: 30px;
+  background: #f6f6f6;
+  border-radius: 15px;
+  margin-left: 5px;
+  font-size: 12px;
+}
+.cj-top{
+  height: 200px;
+  width: 100%;
+  margin-bottom: 10px;
+  border-bottom: #e7e7e7 solid 1px;
+
+  background-color: #ffffff;
+}
+.cj-contain{
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 1020px;
+}
+.cj-top1{
+  padding-top: 15px;
+  height: 50px;
+}
+.cj-top1-left{
+  float: left;
+  width: 68%;
+}
+.cj-top1-right{
+  float: left;
+  width: 30%;
+}
+.border-radius{
+  margin: 5px 5px;
+  padding: 0 10px;
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 15px;
+  background: #e3f0fe;
+  color: #0084ff;
+}
+
+.heng-xiang{
+  list-style-type: none;
+  padding-left: 10px;
+}
+.heng-xiang li{
+  display: inline-block;
+}
+.up-cj{
+  margin-top: 5px;
+  text-align: center;
+  font-size: 14px;
+}
+.down-cj{
+  text-align: center;
+  font-size: 18px;
+  font-weight:bolder ;
+
+}
+.cj-top1-right-l,
+.cj-top1-right-r{
+  width: 50%;
+  float: left;
+}
+.cj-top1-right-r{
+  border-left: #e7e7e7 solid 1px;
+}
+.cj-top3 .btn-default{
+  color: #0084ff !important;
+  background-color: #ffffff;
+  border-color: #0084ff;
+}
+.cj-top3 .btn-anwser{
+  color: #8590a6 !important;
+  background-color: #ffffff;
+  border-color: #8590a6;
+}
+.cj-top3 a{
+  margin: 5px 10px;
+}
+.cj-top3{
+  margin-top: 15px;
+}
+.img-center {
+  position: relative;
+}
+.img-center img{
+  position: relative;
+  top:20px;
+  left: 220px;
+}
+.no-anwser .text-center{
+  margin-top: 40px!important;
+  color: #8590a6;
+}
+.no-anwser a{
+  color: #8590a6;
+}
+.anwser-top{
+  height: 50px;
+  border-bottom: #f6f6f6 solid 1px;
+  position: relative;
+}
+.an-top-l{
+  position: relative;
+  font-size: 18px;
+  font-weight: bolder;
+  left: 50px;
+  color: #000000;
+}
+.an-top-r{
+  position: relative;
+  font-size: 14px;
+  border: none;
+
+  left:450px;
+}
+.an-top-r option{
+  border: none;
+}
+.an-top-r ul{
+
+  list-style-type: none;
+  padding-left: 10px;
+  height: 60px;
+  width: 100px;
+}
+#sort-ul{
+  display: none;
+  background-color: #ffffff;
+  border: #f6f6f6 solid 1px;
+  position: absolute;
+  top:0;
+  left: 0;
+
+
+
+}
+.an-top-r li:hover{
+  background-color: #f6f6f6;
+}
+.an-top-r li{
+  height: 30px;
+  width: 80px;
+ padding: 5px 10px;
+}
+.num-zantong{
+  margin: 10px 5px 10px 0px;
+  font-size: 14px;
+  color: #2e2e2e;
+}
+.about-owner{
+  font-size: 18px;
+  color: #000000;
+  font-weight: bolder;
+  margin: 20px 30px;
+}
+.about-question ul{
+  list-style-type: none;
+}
+.about-question ul li{
+  line-height: 22px;
+  margin: 7px 20px 7px 0px;
+
+}
+.about-question a{
+  color: #1751b3;
+}
+
+.btn-right{
+  position: relative;
+  top:20px;
+  left: 550px;
+}
+.edit-div{
+  position: relative;
+}
+.zh-toolbar {
+  border: 1px solid #ccc;
+
+}
+.zh-text {
+  border: 1px solid #ccc;
+
+}
+.an-center{
+  width: 96%;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+.w-e-text-container{
+  min-height:200px!important;
+}
+.w-e-text{
+  overflow-y:hidden!important;
+}
+.huati-a{
+  color: #12a9ff;
+  margin-left: 150px;
+}
+#huati-div{
+  margin-left: 150px;
+  display: none;
+}
+#huati-div input{
+  width: 100px;
+  border-radius: 25px;
+  border: #12a9ff solid 1px!important;
+  padding-left: 5px;
+}
+#huati-div .btn-link{
+  color: #12a9ff;
+}
+#cj-huati{
+  margin-left: 150px;
+}
+.icon-minus{
+  width: 5px;
+  height: 5px;
+  margin-left: 5px;
+  color: #ffffff;
+  font-size: 6px!important;
+  display: inline-block;
+
+}
+.border-radius a{
+  color: #12a9ff;
 }

@@ -17,20 +17,111 @@
     <script type="text/javascript" src="../static/scripts/main/component/upload.js" th:src="@{/scripts/main/component/upload.js}"></script>
     <script type="text/javascript" src="../static/scripts/main/component/popupUpload.js" th:src="@{/scripts/main/component/popupUpload.js}"></script>
     <script type="text/javascript" src="../static/scripts/main/util/action.js" th:src="@{/scripts/main/util/action.js}"></script>
+    <script type="text/javascript" src="../static/scripts/wangEditor.js" th:src="@{/scripts/wangEditor.js}"></script>
 
 </head>
 <div th:replace="header::header(${user})" ></div>
 <body >
-<div th:inline="text" id="main">
+<div th:inline="text" id="question-main">
+    <div class="cj-top">
+        <div class="cj-contain">
+        <div class="cj-top1">
+            <div class="cj-top1-left">
+                <ul class="heng-xiang">
+                    <li ><a class="border-radius">健身</a></li>
+                    <li ><a class="border-radius">健身标准</a></li>
+
+                </ul>
+            </div>
+            <div class="cj-top1-right">
+                <div class="cj-top1-right-l">
+                    <div class="up-cj">关注者</div>
+                    <div class="down-cj">0</div></div>
+                <div class="cj-top1-right-r">
+                <div class="up-cj">被浏览</div>
+                <div class="down-cj">0</div>
+                </div>
+            </div>
+            <div class="zh_clearfloat"></div>
+        </div>
+        <div class="cj-top2">
+            <div class="zh_h1">
+            <a target="_blank"  th:text="${title}" rel="external nofollow" th:href="'/news/'+${id}" href="">这是问题?</a>
+            </div>
+            <div class="meta js_zh_link" >
+                [[${#strings.abbreviate(vo.get('news').link,79)}]]<a class="full_text" th:if="${vo.get('length') gt 79}" th:href="'/news/'+${vo.get('news').id}" href="" >查看全文<i class="icon-angle-down"></i></a>
+            </div>
+        </div>
+        <div class="cj-top3">
+            <a href=""><div class="btn btn-info">关注问题</div></a>
+            <a href=""><div class="btn btn-default">&nbsp;<i class="icon-pencil"></i> 写回答</div></a>
+            <a href=""><div class="btn btn-anwser ">&nbsp;<i class="icon-plus"></i> 邀请回答</div></a>
+            <button class="zh_button zh_btn">
+                <span>
+                    <i class="icon-comment"></i><a th:href="'/news/'+${vo.get('news').id}" href="">[[${' '+vo.get('news').commentCount+' 添加评论'}]]</a>
+                </span>
+
+            </button>
+            <button class="zh_button">
+                <span>
+                    <i class="juli icon-share"></i>分享
+                </span>
+            </button>
+            <button class="zh_button">
+                <span>
+                    <i class="juli icon-flag"></i>举报
+                </span>
+            </button>
+            <button class="zh_button">
+                <span>
+                    <i class="juli icon-pencil"></i>修改问题
+                </span>
+            </button>
+        </div>
+        </div>
+    </div>
     <div class="zh_detail">
     <div class="detail_right">
     <div class="zh_container">
+        <div class="edit-div">
+            <div class="user_content">
+            <div class="user_head"><a th:href="${'/user/'+owner.id}"><img width="32" class="img-circle" th:src="${owner.headUrl}"/></a></div>
+            <div class="user_right">
+                <div  class="user_name"><a th:href="${'/user/'+owner.id}">[[${owner.name}]]</a></div>
+                <div class="introduce">这个人很懒什么也没留下</div>
+            </div>
+            <div class="zh_clearfloat"></div>
+        </div>
+            <div class="an-center">
+            <div id="an-div1" class="zh-toolbar"  ></div>
+            <div id="an-div2" class="zh-text" >
+            </div>
+            <div><button class="btn btn-info btn-right">提交回答</button></div>
+            </div>
+        </div>
+        <div class="no-anwser">
+            <div class="img-center"><img src="../static/images/img/write-large.png"></div>
+            <div class="text-center">暂时还没有回答开始<a>写第一个回答</a></div>
+        </div>
+        <div class="all-anwser">
+            <div class="anwser-top">
+                <span class="an-top-l">951个回答</span>
+
+                    <span class="an-top-r"> <a href="javascript:void(0);" onclick="showlist()" id="sort-show">默认排序&nbsp;&nbsp;<i class="icon-sort"></i></a>
+                    <div id="sort-ul"  tabindex="-1" onblur="closelist()">
+                        <ul>
+                            <li><a href="javascript:void(0);" onclick="sortmoren()">默认排序</a></li>
+                            <li><a href="javascript:void(0);" onclick="sorttime()">时间排序</a></li>
+                        </ul>
+                    </div>
+                </span>
+
+            </div>
+        </div>
         <div class="post detail">
 
             <div class="zh_content">
                 <div class="detail_content">
-                    <div class="zh_h1" th:text="${news.title}">
-                    </div>
                     <div class="zh_con_detail" >
                             <div class="zh_content-main">
                                 <div class="user_content">
@@ -40,6 +131,7 @@
                                         <div class="introduce">这个人很懒什么也没留下</div>
                                     </div>
                                     <div class="zh_clearfloat"></div>
+                                    <div class="num-zantong">0人已赞同该回答</div>
                                 </div>
                                 <!--<img class="detail_content_img" th:src="@{${news.image}}" src="" alt=""/>-->
                                 <div class="detail_meta">
@@ -130,8 +222,33 @@
         </div>
         </div>
     </div>
-    <div class="user_tip"></div>
+    <div class="user_tip3">
+        <div class="about-owner">关于作者</div>
+        <div class="user_content" style="border-bottom:#f6f6f6 solid 1px;border-top:#f6f6f6 solid 1px;">
+            <div class="user_head"><a th:href="${'/user/'+owner.id}"><img style="width: 100px;height:100px;overflow: hidden;" class="img-circle" th:src="${owner.headUrl}"/></a></div>
+            <div class="user_right">
+                <div  class="u-ownername"><a th:href="${'/user/'+owner.id}">[[${owner.name}]]</a></div>
+                <div class="u-introduce">这个人很懒什么也没留下</div>
+            </div>
+            <div class="zh_clearfloat"></div>
+        </div>
+        <div class="cj-top1-right-l">
+            <div class="up-cj">回答</div>
+            <div class="down-cj">0</div></div>
+        <div class="cj-top1-right-r">
+            <div class="up-cj">关注者</div>
+            <div class="down-cj">0</div>
+    </div>
     <div class="zh_clearfloat"></div>
+        <div class="about-owner" style="border-bottom:#f6f6f6 solid 1px;">相关问题</div>
+        <div class="about-question">
+        <ul>
+            <li><a href="">第一个问题第一个问题第一个问题?&nbsp;&nbsp;&nbsp;</a>0个回答</li>
+            <li><a href="">第一个问题第一个问题第一个问题第一个问题第一个问题第一个问题?&nbsp;&nbsp;&nbsp;</a>0个回答</li>
+            <li><a href="">第一个第一个问题第一个问题问题?&nbsp;&nbsp;&nbsp;</a>0个回答</li>
+            <li><a href="">第一个问题?&nbsp;&nbsp;&nbsp;</a>0个回答</li>
+        </ul>
+        </div>
     </div>
     <script type="text/javascript">
           $(function(){
@@ -175,8 +292,34 @@
           })
 
     </script>
-    <script type="text/javascript" src="/scripts/main/site/detail.js"></script>
-</div>
+    <script type="text/javascript" src="/scripts/main/site/detail.js"></script><script type="text/javascript">
+            var E = window.wangEditor;
+            var editor = new E('#an-div1','#an-div2');
+            editor.customConfig.menus = [
+                'head',  // 标题
+                'bold',  // 粗体
+                'fontSize',  // 字号
+                'fontName',  // 字体
+                'italic',  // 斜体
+                'underline',  // 下划线
+                'strikeThrough',  // 删除线
+                'foreColor',  // 文字颜色
+                'backColor',  // 背景颜色
+                'link',  // 插入链接
+                'list',  // 列表
+                'justify',  // 对齐方式
+                'emoticon',  // 表情
+                'image',  // 插入图片
+                'table',  // 表格
+                'code',  // 插入代码
+                'undo',  // 撤销
+                'redo'  // 重复
+            ]
+            editor.customConfig.uploadImgServer = '/upload';
+            editor.create();
+    </script>
+
+    </div></div>
 <div th:replace="footer::footer" ></div>
 </body>
 </html>
