@@ -7871,7 +7871,7 @@ textarea[readonly] {
 }
 #huati-div{
   margin-left: 150px;
-  display: none;
+  display: inline-block;
 }
 #huati-div input{
   width: 100px;

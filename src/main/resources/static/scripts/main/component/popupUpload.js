@@ -24,12 +24,8 @@ var oPopupUpload = new PopupUpload({
                 '</div>',
                   '<div class="form-group"><label class="col-sm-2 control-label">问题描述</label><div class="col-sm-10"><textarea rows="5" class="js-link form-control" placeholder="输入问题详细描述,准确的描述更容易得到解答"></textarea></div></div>',
             '<div class="form-group">' +
-            '<div class="cj-top1-left" id="cj-huati" style="display: none">\n' +
-            '                <ul class="heng-xiang">\n' +
-            '                    <li class="border-radius" ><a>健身&nbsp;</a><a class="radius-a" href="javascript:void(0);"  ><i class="icon-minus"></i></a></li>\n' +
-            '                </ul>\n' +
-            '            </div><a class="huati-a" href="javascript:void(0);" onclick="input1()"><i class="icon-plus"></i>&nbsp;请选择一个话题(至少添加一个话题)</a>' +
-            '<div id="huati-div"><input/><button class="btn btn-link" onclick="tianjia()">添加</button></div></div>',
+            ' <a class="huati-a" href="javascript:void(0);" onclick="input1(this)"><i class="icon-plus"></i>&nbsp;请选择一个话题(至少添加一个话题)</a>' +
+            '</div>',
             '<div class="form-group">',
                         '<div class="col-lg-10 col-lg-offset-2">',
                             '<input type="submit" value="提交" class="js-submit btn btn-default btn-info btn-upload">',

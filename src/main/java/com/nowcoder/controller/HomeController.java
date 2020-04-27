@@ -90,6 +90,11 @@ public class HomeController {
     public String userIndex(Model model) {
         return "login";
     }
+    @RequestMapping(path = {"/question/answer"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public String qsAnswer(Model model) {
+        return "question";
+    }
+
 
     @RequestMapping(path = {"/user/regist"}, method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
