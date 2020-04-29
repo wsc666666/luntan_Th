@@ -62,8 +62,21 @@ var oPopupUpload = new PopupUpload({
             handler: function () {
                 var that = this;
                 var oEl = that.getEl();
+                var sType=document.getElementsByClassName('js-type-content');
+                if(sType==null||sType.length==0||sType.length>4){
+                    return alert('至少一个分类,至多5个分类');
+                }
+                var sTypelist=new Array();
+                for (var i=0;i<sType.length;i++){
+                    sTypelist[i]=sType[i].textContent;
+                }
+
                 var sTitle = $.trim(oEl.find('input.js-title').val());
                 var sLink = $.trim(oEl.find('textarea.js-link').val());
+                if(sTitle.length>16)
+                {return alert('标题过长，限制16字内');}
+                if(sLink.length>2560)
+                {return alert('描述过长，限制2560字内');}
                 if (!sTitle) {
                     return alert('标题不能为空');
                 }
@@ -83,7 +96,7 @@ var oPopupUpload = new PopupUpload({
                 $.ajax({
                     url: '/user/addNews/',
                     method: 'post',
-                    data: {image: that.image, title: sTitle, link: sLink},
+                    data: {image: that.image, title: sTitle, link: sLink, type: sTypelist.toString()},
                     dataType: 'json'
                 }).done(function (oResult) {
                     that.emit('done');

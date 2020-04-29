@@ -36,11 +36,22 @@ function input1(e){
 function tianjia(e) {
 
    var input=document.getElementById('input-btn').value;
+   if(!input.trim())
+   {
+       return false;
+   }
     var htmls= e.parentNode.innerHTML;
-    e.parentNode.innerHTML='<div class="border-radius" ><a>'+input+'&nbsp;</a><a class="radius-a" href="javascript:void(0);" onclick="delete_li(this)" ><i  class="icon-minus"></i></a></div>'+htmls;
+    e.parentNode.innerHTML='<div class="border-radius" ><span class="js-type-content">'+input+'</span><a class="radius-a" href="javascript:void(0);" onclick="delete_li(this)" >&nbsp;<i  class="icon-minus"></i></a></div>'+htmls;
+//var tmp=document.getElementsByClassName('js-type-content')[0].textContent;
+//alert(tmp);
 }
 function delete_li(e) {
     e.parentNode.remove();
+
+}
+function js_edit (){
+   document.getElementsByClassName("edit-div")[0].style.display="block";
+   document.getElementsByClassName("no-anwser")[0].style.display="none";
 
 }
 

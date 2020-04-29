@@ -1,5 +1,9 @@
 package com.nowcoder.controller;
 
+import com.nowcoder.dao.AnswerDAO;
+import com.nowcoder.dao.CommentDAO;
+import com.nowcoder.dao.NewsDAO;
+import com.nowcoder.dao.UserDAO;
 import com.nowcoder.model.*;
 import com.nowcoder.service.LikeService;
 import com.nowcoder.service.NewsService;
@@ -13,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -25,6 +30,14 @@ import java.util.Map;
  */
 @Controller
 public class HomeController {
+    @Resource
+    private CommentDAO commentDAO;
+    @Resource
+    private UserDAO userDAO;
+    @Resource
+    private NewsDAO newsDAO;
+    @Resource
+    private AnswerDAO answerDAO;
     @Autowired
     NewsService newsService;
 
@@ -90,8 +103,50 @@ public class HomeController {
     public String userIndex(Model model) {
         return "login";
     }
-    @RequestMapping(path = {"/question/answer"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public String qsAnswer(Model model) {
+
+
+
+    @RequestMapping(path = {"/question/answer/{newsId}"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public String qsAnswer(Model model,@PathVariable("newsId") int newsId) {
+        List<Answer> answers=answerDAO.selectByNewsIdAndOffset(newsId,0,1);
+        List<ViewObject> vos = new ArrayList<>();
+        for (Answer answer : answers) {
+            ViewObject v = new ViewObject();
+            User user=userDAO.selectById(answer.getUserId());
+            v.set("owner",user);
+            int localUserId = hostHolder.getUser() != null ? hostHolder.getUser().getId() : 0;
+            if (localUserId != 0) {
+                v.set("like", likeService.getLikeStatus(localUserId, EntityType.ENTITY_ANSWER, answer.getId()));
+            } else {
+               v.set("like", 0);}
+            List<Comment> comments = commentDAO.selectByEntity(answer.getId(), EntityType.ENTITY_ANSWER);
+            List<ViewObject> commentVOs = new ArrayList<ViewObject>();
+            for (Comment comment : comments) {
+                ViewObject vo = new ViewObject();
+                vo.set("comment", comment);
+                vo.set("user", userService.getUser(comment.getUserId()));
+                commentVOs.add(vo);
+            }
+
+
+            int answer_count=userDAO.countById(user.getId());
+
+            answer.setCommentCount(String.valueOf(commentDAO.getCommentCount(answer.getId(),EntityType.ENTITY_ANSWER)));
+            v.set("comments", commentVOs);
+            v.set("answer",answer);
+            v.set("answer_count",answer_count);
+            vos.add(v);
+        }
+        logger.warn("vos::::::::::::",vos);
+        News news=newsDAO.getById(newsId);
+        String[] type=news.getType().split(",");
+        int length=news.getLink().length();
+        news.setAnCount(answerDAO.countById(news.getId()));
+        model.addAttribute("vos",vos);
+        model.addAttribute("news", news);
+        model.addAttribute("type", type);
+        model.addAttribute("length", length);
+
         return "question";
     }
 

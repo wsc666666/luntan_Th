@@ -22,6 +22,44 @@ public class News {
   private Date createdDate;
 
   private int userId;
+  private  String type;
+
+  public String getFollowCount() {
+    return followCount;
+  }
+
+  public void setFollowCount(String followCount) {
+    this.followCount = followCount;
+  }
+
+  public String getReadCount() {
+    return readCount;
+  }
+
+  public void setReadCount(String readCount) {
+    this.readCount = readCount;
+  }
+
+  private  String followCount;
+  private  String readCount;
+
+  public int getAnCount() {
+    return anCount;
+  }
+
+  public void setAnCount(int anCount) {
+    this.anCount = anCount;
+  }
+
+  private  int anCount;
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
 
   public int getId() {
     return id;

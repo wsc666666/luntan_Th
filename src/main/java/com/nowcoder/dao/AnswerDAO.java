@@ -1,7 +1,6 @@
 package com.nowcoder.dao;
 
-import com.nowcoder.model.News;
-import com.nowcoder.model.User;
+import com.nowcoder.model.Answer;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -10,17 +9,19 @@ import java.util.List;
  * Created by nowcoder on 2016/7/2.
  */
 @Mapper
-public interface NewsDAO {
-    String TABLE_NAME = "news";
-    String INSERT_FIELDS = " title, link, image, like_count, comment_count, created_date, user_id, type, an_count, follow_count, read_count ";
+public interface AnswerDAO {
+    String TABLE_NAME = "answer";
+    String INSERT_FIELDS = " user_id, news_id, entity, like_count, comment_count, create_date ";
     String SELECT_FIELDS = " id, " + INSERT_FIELDS;
 
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS,
-            ") values (#{title},#{link},#{image},#{likeCount},#{commentCount},#{createdDate},#{userId},#{type},#{anCount},#{followCount},#{readCount})"})
-    int addNews(News news);
+            ") values (#{userId},#{newsId},#{entity},#{likeCount},#{commentCount},#{createDate})"})
+    int addAnswer(Answer answer);
 
     @Select({"select ", SELECT_FIELDS , " from ", TABLE_NAME, " where id=#{id}"})
-    News getById(int id);
+    Answer getById(int id);
+    @Select({"SELECT count(*) FROM answer WHERE news_id=#{newsId}"})
+    int countById(int news_id);
 
     @Update({"update ", TABLE_NAME, " set comment_count = #{commentCount} where id=#{id}"})
     int updateCommentCount(@Param("id") int id, @Param("commentCount") int commentCount);
@@ -28,6 +29,6 @@ public interface NewsDAO {
     @Update({"update ", TABLE_NAME, " set like_count = #{likeCount} where id=#{id}"})
     int updateLikeCount(@Param("id") int id, @Param("likeCount") int likeCount);
 
-    List<News> selectByUserIdAndOffset(@Param("userId") int userId, @Param("offset") int offset,
+    List<Answer> selectByNewsIdAndOffset(@Param("newsId") int newsId, @Param("offset") int offset,
                                        @Param("limit") int limit);
 }

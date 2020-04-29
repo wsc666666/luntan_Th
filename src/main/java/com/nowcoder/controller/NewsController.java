@@ -1,5 +1,6 @@
 package com.nowcoder.controller;
 
+import com.nowcoder.dao.AnswerDAO;
 import com.nowcoder.model.*;
 import com.nowcoder.service.*;
 import com.nowcoder.util.ToutiaoUtil;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.HtmlUtils;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -29,6 +31,8 @@ import static com.nowcoder.util.ToutiaoUtil.*;
 @Controller
 public class NewsController {
     private static final Logger logger = LoggerFactory.getLogger(NewsController.class);
+    @Resource
+    AnswerDAO answerDAO;
     @Autowired
     NewsService newsService;
 
@@ -73,11 +77,12 @@ public class NewsController {
         return "detail";
     }
 
+
     @RequestMapping(path = {"/addComment"}, method = {RequestMethod.POST})
     public String addComment(@RequestParam("newsId") int newsId,
                              @RequestParam("content") String content) {
         try {
-            content = HtmlUtils.htmlEscape(content);
+            //content = HtmlUtils.htmlEscape(content);
             // 过滤content
             Comment comment = new Comment();
             comment.setUserId(hostHolder.getUser().getId());
@@ -96,6 +101,32 @@ public class NewsController {
             logger.error("增加评论失败" + e.getMessage());
         }
         return "redirect:/news/" + String.valueOf(newsId);
+    }
+
+    @RequestMapping(path = {"/answer/addComment"}, method = {RequestMethod.POST})
+    public String aaddComment(@RequestParam("answerId") int answerId,
+                             @RequestParam("content") String content) {
+        Comment comment = new Comment();
+        try {
+            //content = HtmlUtils.htmlEscape(content);
+            // 过滤content
+
+            comment.setUserId(hostHolder.getUser().getId());
+            comment.setContent(content);
+            comment.setEntityId(answerId);
+            comment.setEntityType(EntityType.ENTITY_ANSWER);
+            comment.setCreatedDate(new Date());
+            comment.setStatus(0);
+
+            commentService.addComment(comment);
+            // 更新news里的评论数量
+            int count = commentService.getCommentCount(comment.getEntityId(), comment.getEntityType());
+            answerDAO.updateCommentCount(comment.getEntityId(), count);
+            // 怎么异步化
+        } catch (Exception e) {
+            logger.error("增加评论失败" + e.getMessage());
+        }
+        return "redirect:/question/answer/" + String.valueOf(answerDAO.getById(comment.getEntityId()).getNewsId());
     }
 
 
@@ -133,19 +164,42 @@ public class NewsController {
             return ToutiaoUtil.getJSONString(1, "上传失败");
         }
     }
+    @RequestMapping(path = {"/uploadImg/"}, method = {RequestMethod.POST})
+    @ResponseBody
+    public String uploadImg(@RequestParam("file") ArrayList<MultipartFile> file, HttpServletRequest request) {
+        ArrayList<String> fileUrl =new ArrayList<>();
+        try {
+            for (MultipartFile f:file){
+                fileUrl.add(newsService.saveImage(f,request));
+            }
+
+            // String fileUrl = qiniuService.saveImage(file);
+            if (fileUrl == null) {
+                return ToutiaoUtil.getJSONStringImg(1, fileUrl);
+            }
+            return ToutiaoUtil.getJSONStringImg(0, fileUrl);
+        } catch (Exception e) {
+            logger.error("上传图片失败" + e.getMessage());
+            return ToutiaoUtil.getJSONStringImg(0, fileUrl);
+        }
+    }
 
     @RequestMapping(path = {"/user/addNews/"}, method = {RequestMethod.POST})
     @ResponseBody
     public String addNews(@RequestParam("image") String image,
                           @RequestParam("title") String title,
-                          @RequestParam("link") String link) {
+                          @RequestParam("link") String link,
+                          @RequestParam("type") String type) {
         try {
+            //title = HtmlUtils.htmlEscape(title);
+           // link = HtmlUtils.htmlEscape(link);
             News news = new News();
+            logger.info("type:" + type);
             news.setCreatedDate(new Date());
             news.setTitle(title);
             news.setImage(image);
             news.setLink(link);
-            System.out.println("tianjia************");
+            news.setType(type);
             if (hostHolder.getUser() != null) {
                 news.setUserId(hostHolder.getUser().getId());
             } else {
@@ -157,6 +211,31 @@ public class NewsController {
         } catch (Exception e) {
             logger.error("添加资讯失败" + e.getMessage());
             return ToutiaoUtil.getJSONString(1, "发布失败");
+        }
+    }
+    @RequestMapping(path = {"/user/addAnswer/"}, method = {RequestMethod.POST})
+    @ResponseBody
+    public String addAnswer(@RequestParam("content") String content,
+                            @RequestParam("newsId") int newsId
+                         ) {
+        try {
+            Answer answer = new Answer();
+            answer.setCreateDate(new Date());
+            answer.setEntity(content);
+            answer.setNewsId(newsId);
+
+            if (hostHolder.getUser() != null) {
+                answer.setUserId(hostHolder.getUser().getId());
+            } else {
+                // 设置一个匿名用户
+                answer.setUserId(3);
+            }
+
+            answerDAO.addAnswer(answer);
+            return ToutiaoUtil.getJSONString(0);
+        } catch (Exception e) {
+            logger.error("添加回答失败" + e.getMessage());
+            return ToutiaoUtil.getJSONString(1, "回答失败");
         }
     }
 }

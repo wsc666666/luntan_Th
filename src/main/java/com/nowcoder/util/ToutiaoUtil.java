@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -37,6 +38,12 @@ public class ToutiaoUtil {
         JSONObject json = new JSONObject();
         json.put("code", code);
         json.put("msg", msg);
+        return json.toJSONString();
+    }
+    public static String getJSONStringImg(int errno,  ArrayList<String> data) {
+        JSONObject json = new JSONObject();
+        json.put("errno", errno);
+        json.put("data", data);
         return json.toJSONString();
     }
 

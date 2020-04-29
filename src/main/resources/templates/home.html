@@ -41,17 +41,17 @@
                             <div class="zh_content">
                             <div class="content">
                                 <div class="zh_h3">
-                                    <a target="_blank"  th:text="${vo.get('news').title}" rel="external nofollow" th:href="'/news/'+${vo.get('news').id}" href=""></a>
+                                    <a th:text="${vo.get('news').title}" rel="external nofollow" th:href="'/question/answer/'+${vo.get('news').id}" href=""></a>
                                 </div>
                                 <div class="zh_con" >
-                                    <a th:href="'/news/'+${vo.get('news').id}" href="">
+                                    <a th:href="'/question/answer/'+${vo.get('news').id}" href="">
                                 <div style="display: inline-block" >
                                     <img class="content-img" th:src="@{${vo.get('news').image}}" src="" alt=""/>
                                 </div>
                                 <div class="content-main">
 
                                     <div class="meta js_zh_link" >
-                                        [[${#strings.abbreviate(vo.get('news').link,79)}]]<a class="full_text" th:if="${vo.get('length') gt 79}" th:href="'/news/'+${vo.get('news').id}" href="" >查看全文<i class="icon-angle-down"></i></a>
+                                        [[${#strings.abbreviate(vo.get('news').link,79)}]]<a class="full_text" th:if="${vo.get('length') gt 79}" th:href="'/question/answer/'+${vo.get('news').id}" href="" >查看全文<i class="icon-angle-down"></i></a>
                                     </div>
 
                                 </div>
@@ -118,7 +118,7 @@
             <div class="user_tip">
                 <div class="user_tip_top" >
                     <div class="tip_content">
-                        <a href="/question/answer">
+                        <a href="/question/answer/32">
                         <div class="tip_1_1"><img class="img_center" src="/images/img/file1.png"/></div>
                         <div class="tip_2">回答问题</div>
                         </a>
@@ -206,6 +206,7 @@ window.loginpop = [[${pop}]];
 
         var links = document.getElementsByClassName('user_tip')[0].getElementsByTagName('a');
         var links2 = document.getElementsByClassName('pinlun')[0].getElementsByTagName('a');
+        var links3 = document.getElementsByClassName('jscroll-inner')[0].getElementsByTagName('a');
 
         for(var i = 0; i < links.length; i++){
             if ([[${user}]]==null){
@@ -217,6 +218,12 @@ window.loginpop = [[${pop}]];
             if ([[${user}]]==null){
                 links2[i].setAttribute("href","javascript:void(0)");}
             links2[i].setAttribute("onclick","playing()");
+
+        }
+        for(var i = 0; i < links3.length; i++){
+            if ([[${user}]]==null){
+                links3[i].setAttribute("href","javascript:void(0)");}
+            links3[i].setAttribute("onclick","playing()");
 
         }
     }

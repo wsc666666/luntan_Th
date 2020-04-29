@@ -22,7 +22,7 @@ public class LikeService {
         return jedisAdapter.sismember(disLikeKey, String.valueOf(userId)) ? -1 : 0;
     }
 
-    public long like(int userId, int entityType, int entityId) {
+    public long like(int userId,int entityType, int entityId) {
         // 在喜欢集合里增加
         String likeKey = RedisKeyUtil.getLikeKey(entityId, entityType);
         jedisAdapter.sadd(likeKey, String.valueOf(userId));
@@ -41,4 +41,43 @@ public class LikeService {
         jedisAdapter.srem(likeKey, String.valueOf(userId));
         return jedisAdapter.scard(likeKey);
     }
+    public long star(int userId,int entityType, int entityId) {
+        // 在喜欢集合里增加
+        String likeKey = RedisKeyUtil.getStarLikeKey(entityId, entityType);
+        jedisAdapter.sadd(likeKey, String.valueOf(userId));
+        // 从反对里删除
+        String disLikeKey = RedisKeyUtil.getStarDisLikeKey(entityId, entityType);
+        jedisAdapter.srem(disLikeKey, String.valueOf(userId));
+        return jedisAdapter.scard(likeKey);
+    }
+
+    public long disStar(int userId, int entityType, int entityId) {
+        // 在反对集合里增加
+        String disLikeKey = RedisKeyUtil.getStarDisLikeKey(entityId, entityType);
+        jedisAdapter.sadd(disLikeKey, String.valueOf(userId));
+        // 从喜欢里删除
+        String likeKey = RedisKeyUtil.getStarLikeKey(entityId, entityType);
+        jedisAdapter.srem(likeKey, String.valueOf(userId));
+        return jedisAdapter.scard(likeKey);
+    }
+    public long like2(int userId,int entityType, int entityId) {
+        // 在喜欢集合里增加
+        String likeKey = RedisKeyUtil.getLike2Key(entityId, entityType);
+        jedisAdapter.sadd(likeKey, String.valueOf(userId));
+        // 从反对里删除
+        String disLikeKey = RedisKeyUtil.getDisLike2Key(entityId, entityType);
+        jedisAdapter.srem(disLikeKey, String.valueOf(userId));
+        return jedisAdapter.scard(likeKey);
+    }
+
+    public long dislike2(int userId, int entityType, int entityId) {
+        // 在反对集合里增加
+        String disLikeKey = RedisKeyUtil.getDisLike2Key(entityId, entityType);
+        jedisAdapter.sadd(disLikeKey, String.valueOf(userId));
+        // 从喜欢里删除
+        String likeKey = RedisKeyUtil.getLike2Key(entityId, entityType);
+        jedisAdapter.srem(likeKey, String.valueOf(userId));
+        return jedisAdapter.scard(likeKey);
+    }
+
 }

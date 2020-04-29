@@ -5219,19 +5219,24 @@ a.text-#000000:hover {
 
 }
 .user_right{
-  margin-left: 5px;
+  margin-left: 15px;
   float:left;
 }
 .introduce{
-  font-size: 14px;
+  font-size: 12px;
   color: #626262;
+}
+.user_name{
+  font-weight: bolder;
 }
 .u-introduce{
   font-size: 16px;
   color: #626262;
 }
 .u-ownername{
+  margin-top: 15px;
   font-size: 20px;
+  font-weight: bolder;
   color: #000000;
 }
 /* line 122, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/posts.scss */
@@ -7413,6 +7418,13 @@ textarea[readonly] {
   margin-left: 10px;
   border:1px solid #eeeeee;
 }
+.about-question-div{
+  background-color: #ffffff;
+  float: left;
+  width: 30%;
+  margin-left: 10px;
+  border:1px solid #eeeeee;
+}
 .container_right{
   float: left;
   width:68%;
@@ -7673,7 +7685,7 @@ textarea[readonly] {
   font-size: 12px;
 }
 .cj-top{
-  height: 200px;
+  height: 220px;
   width: 100%;
   margin-bottom: 10px;
   border-bottom: #e7e7e7 solid 1px;
@@ -7768,6 +7780,7 @@ textarea[readonly] {
   color: #8590a6;
 }
 .anwser-top{
+  padding-top: 15px;
   height: 50px;
   border-bottom: #f6f6f6 solid 1px;
   position: relative;
@@ -7842,9 +7855,12 @@ textarea[readonly] {
   position: relative;
   top:20px;
   left: 550px;
+  margin-bottom: 50px;
 }
 .edit-div{
+  margin: 15px 5px 5px 5px;
   position: relative;
+  display: none;
 }
 .zh-toolbar {
   border: 1px solid #ccc;
@@ -7896,4 +7912,10 @@ textarea[readonly] {
 }
 .border-radius a{
   color: #12a9ff;
+}
+.next_answer {
+  text-align: center;
+  font-size: 16px;
+  color: #58666e;
+
 }

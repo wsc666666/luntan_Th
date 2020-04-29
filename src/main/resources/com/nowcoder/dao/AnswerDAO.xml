@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nowcoder.dao.AnswerDAO">
+    <sql id="table">answer</sql>
+    <sql id="selectFields">id, user_id, news_id, entity, like_count, comment_count, create_date
+    </sql>
+    <select id="selectByNewsIdAndOffset" resultType="com.nowcoder.model.Answer">
+        SELECT
+        <include refid="selectFields"/>
+        FROM
+        <include refid="table"/>
+
+        <if test="newsId != 0">
+            WHERE news_id = #{newsId}
+        </if>
+        ORDER BY id DESC
+        LIMIT #{offset},#{limit}
+    </select>
+</mapper>

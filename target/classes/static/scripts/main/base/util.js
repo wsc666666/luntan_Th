@@ -26,16 +26,34 @@ function sorttime(){
     document.getElementById('sort-show').innerHTML='时间排序&nbsp;&nbsp;<i class="icon-sort"></i>';
 }
 
-function input1(){
-    document.getElementsByClassName('huati-a')[0].style.display='none';
-    document.getElementById('huati-div').style.display='block';
+function input1(e){
+
+   // if (idObject != null)
+      //  idObject.parentNode.removeChild(idObject);
+    e.parentNode.innerHTML='<div id="huati-div"><input id="input-btn"/><button class="btn btn-link" onclick="tianjia(this)">添加</button></div>';
+//    e.parentNode.innerHTML='<div id="huati-div"><input id="input-btn"/><button class="btn btn-link" onclick="tianjia(this)">添加</button></div>';
 }
-function tianjia() {
-    document.getElementById('cj-huati').style.display='block';
-    document.getElementById('huati-div').style.display='none';
+function tianjia(e) {
+
+   var input=document.getElementById('input-btn').value;
+   if(!input.trim())
+   {
+       return false;
+   }
+    var htmls= e.parentNode.innerHTML;
+    e.parentNode.innerHTML='<div class="border-radius" ><span class="js-type-content">'+input+'</span><a class="radius-a" href="javascript:void(0);" onclick="delete_li(this)" >&nbsp;<i  class="icon-minus"></i></a></div>'+htmls;
+//var tmp=document.getElementsByClassName('js-type-content')[0].textContent;
+//alert(tmp);
+}
+function delete_li(e) {
+    e.parentNode.remove();
 
 }
+function js_edit (){
+   document.getElementsByClassName("edit-div")[0].style.display="block";
+   document.getElementsByClassName("no-anwser")[0].style.display="none";
 
+}
 
 (function (window, undefined) {
     var Util = Base.createClass('main.base.Util');

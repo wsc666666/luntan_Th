@@ -24,12 +24,8 @@ var oPopupUpload = new PopupUpload({
                 '</div>',
                   '<div class="form-group"><label class="col-sm-2 control-label">问题描述</label><div class="col-sm-10"><textarea rows="5" class="js-link form-control" placeholder="输入问题详细描述,准确的描述更容易得到解答"></textarea></div></div>',
             '<div class="form-group">' +
-            '<div class="cj-top1-left" id="cj-huati" style="display: none">\n' +
-            '                <ul class="heng-xiang">\n' +
-            '                    <li class="border-radius" ><a>健身&nbsp;</a><a class="radius-a" href="javascript:void(0);"  ><i class="icon-minus"></i></a></li>\n' +
-            '                </ul>\n' +
-            '            </div><a class="huati-a" href="javascript:void(0);" onclick="input1()"><i class="icon-plus"></i>&nbsp;请选择一个话题(至少添加一个话题)</a>' +
-            '<div id="huati-div"><input/><button class="btn btn-link" onclick="tianjia()">添加</button></div></div>',
+            ' <a class="huati-a" href="javascript:void(0);" onclick="input1(this)"><i class="icon-plus"></i>&nbsp;请选择一个话题(至少添加一个话题)</a>' +
+            '</div>',
             '<div class="form-group">',
                         '<div class="col-lg-10 col-lg-offset-2">',
                             '<input type="submit" value="提交" class="js-submit btn btn-default btn-info btn-upload">',
@@ -66,8 +62,21 @@ var oPopupUpload = new PopupUpload({
             handler: function () {
                 var that = this;
                 var oEl = that.getEl();
+                var sType=document.getElementsByClassName('js-type-content');
+                if(sType==null||sType.length==0||sType.length>4){
+                    return alert('至少一个分类,至多5个分类');
+                }
+                var sTypelist=new Array();
+                for (var i=0;i<sType.length;i++){
+                    sTypelist[i]=sType[i].textContent;
+                }
+
                 var sTitle = $.trim(oEl.find('input.js-title').val());
                 var sLink = $.trim(oEl.find('textarea.js-link').val());
+                if(sTitle.length>16)
+                {return alert('标题过长，限制16字内');}
+                if(sLink.length>2560)
+                {return alert('描述过长，限制2560字内');}
                 if (!sTitle) {
                     return alert('标题不能为空');
                 }
@@ -87,7 +96,7 @@ var oPopupUpload = new PopupUpload({
                 $.ajax({
                     url: '/user/addNews/',
                     method: 'post',
-                    data: {image: that.image, title: sTitle, link: sLink},
+                    data: {image: that.image, title: sTitle, link: sLink, type: sTypelist.toString()},
                     dataType: 'json'
                 }).done(function (oResult) {
                     that.emit('done');
