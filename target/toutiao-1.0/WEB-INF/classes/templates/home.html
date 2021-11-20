@@ -1,154 +1,258 @@
-#parse("header.html")
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" style="background: rgba(246,246,246,0.73)">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>道乎</title>
+    <link rel="stylesheet" type="text/css" href="../static/styles/bootstrap.min.css" th:href="@{/styles/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../static/styles/font-awesome.min.css" th:href="@{/styles/font-awesome.min.css}"/>
 
-    <div id="main">
-    <!--
-        <div class="hero">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="app-iphone">
-                            <div class="carousel slide" data-ride="carousel" data-interval="3000">
-                                <div class="carousel-inner" role="listbox">
-                                    <div class="item">
-                                      <img alt="牛客网应用截图阅读精选" src="http://images.nowcoder.com/images/20141231/622873_1420036789276_622873_1420036771761_%E8%98%91%E8%8F%87.jpg@0e_200w_200h_0c_1i_1o_90Q_1x">
-                                      <div class="carousel-caption">阅读精选</div>
-                                    </div>
-                                    <div class="item active">
-                                      <img alt="牛客网应用截图订阅主题" src="http://images.nowcoder.com/images/20141231/622873_1420036789276_622873_1420036771761_%E8%98%91%E8%8F%87.jpg@0e_200w_200h_0c_1i_1o_90Q_1x">
-                                      <div class="carousel-caption">订阅主题</div>
-                                    </div>
-                                    <div class="item">
-                                      <img alt="牛客网应用截图分享干货" src="http://images.nowcoder.com/images/20141231/622873_1420036789276_622873_1420036771761_%E8%98%91%E8%8F%87.jpg@0e_200w_200h_0c_1i_1o_90Q_1x">
-                                      <div class="carousel-caption">分享干货</div>
-                                    </div>
-                                    <div class="item">
-                                      <img alt="牛客网应用截图兑换礼品" src="http://images.nowcoder.com/images/20141231/622873_1420036789276_622873_1420036771761_%E8%98%91%E8%8F%87.jpg@0e_200w_200h_0c_1i_1o_90Q_1x">
-                                      <div class="carousel-caption">兑换礼品</div>
-                                    </div>
-                                    <div class="item">
-                                      <img alt="牛客网应用截图建立品牌" src="http://images.nowcoder.com/images/20141231/622873_1420036789276_622873_1420036771761_%E8%98%91%E8%8F%87.jpg@0e_200w_200h_0c_1i_1o_90Q_1x">
-                                      <div class="carousel-caption">建立品牌</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <link rel="stylesheet" media="all" href="../static/styles/style.css" th:href="@{/styles/style.css}"/>
+    <script type="text/javascript" src="../static/scripts/jquery.js" th:src="@{/scripts/jquery.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/base/base.js" th:src="@{/scripts/main/base/base.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/base/util.js" th:src="@{/scripts/main/base/util.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/base/event.js" th:src="@{/scripts/main/base/event.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/base/upload.js" th:src="@{/scripts/main/base/upload.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/component.js" th:src="@{/scripts/main/component/component.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/popup.js" th:src="@{/scripts/main/component/popup.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/popupLogin.js" th:src="@{/scripts/main/component/popupLogin.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/upload.js" th:src="@{/scripts/main/component/upload.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/component/popupUpload.js" th:src="@{/scripts/main/component/popupUpload.js}"></script>
+    <script type="text/javascript" src="../static/scripts/main/util/action.js" th:src="@{/scripts/main/util/action.js}"></script>
 
-                    <div class="col-sm-6">
-                        <div class="intro">
-                            <div class="title">
-                              <h1>牛客网</h1>
-                              <h3>程序员必装的 App</h3>
-                            </div>
-                            <div class="media">
-                                <div class="media-left">
-                                    <img class="media-object app-qrcode" src="/images/res/qrcode.png" alt="App qrcode web index">
-                                </div>
-                                <div class="media-body">
-                                    <div class="buttons">
-                                      <p><a onclick="_hmt.push([&#39;_trackEvent&#39;, &#39;app&#39;, &#39;download&#39;, &#39;ios&#39;])" class="btn btn-success btn-lg" href="http://nowcoder.com/s/ios"><i class="fa icon-apple"></i> iPhone 版</a></p>
-                                      <p><a onclick="_hmt.push([&#39;_trackEvent&#39;, &#39;app&#39;, &#39;download&#39;, &#39;apk&#39;])" class="btn btn-success btn-lg" href="http://nowcoder.com/s/apk"><i class="fa icon-android"></i> Android 版</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        -->
-
-        <div class="container" id="daily">
+</head>
+<script>
+</script>
+<body>
+<div th:replace="header::header(${user},${unReadNum})" ></div>
+    <div th:inline="text" id="main">
+        <div class="container" id="daily" >
+            <div class="container_right">
+          <div class="zh_top">
+              <ul class="zh_ul_top" th:if="${type==null}">
+              <li  ><a id="a1" href="/" class="zh_active" >推荐</a></li>
+              <li  ><a id="a2" href="/user/star/2">关注</a></li>
+              <li   ><a href="#">热榜</a></li>
+          </ul>
+              <span th:if="${type!=null}" style="font-size: 18px;font-weight: bold;margin-left: 20px;line-height: 70px;">[[${'与'+type+'相关的话题'}]]</span>
+          </div>
             <div class="jscroll-inner">
-                <div class="daily">
-
-                    #set($cur_date = '')
-                    #foreach($vo in $vos)
-                    #if ($cur_date != $date.format('yyyy-MM-dd', $vo.news.createdDate))
-                        #if ($foreach.index > 0)
-                            </div> ## 上一个要收尾
-                        #end
-                        #set($cur_date = $date.format('yyyy-MM-dd', $vo.news.createdDate))
-                    <h3 class="date">
-                        <i class="fa icon-calendar"></i>
-                        <span>头条资讯 &nbsp; $date.format('yyyy-MM-dd', $vo.news.createdDate)</span>
-                    </h3>
-
+                <div th:each="vo: ${vos}" class="daily">
                     <div class="posts">
-                    #end
+
                         <div class="post">
-                            <div class="votebar">
-                                #if ($vo.like > 0)
-                                <button class="click-like up pressed" data-id="$!{vo.news.id}" title="赞同"><i class="vote-arrow"></i><span class="count">$!{vo.news.likeCount}</span></button>
-                                #else
-                                <button class="click-like up" data-id="$!{vo.news.id}" title="赞同"><i class="vote-arrow"></i><span class="count">$!{vo.news.likeCount}</span></button>
-                                #end
-                                #if($vo.like < 0)
-                                <button class="click-dislike down pressed" data-id="$!{vo.news.id}" title="反对"><i class="vote-arrow"></i></button>
-                                #else
-                                <button class="click-dislike down" data-id="$!{vo.news.id}" title="反对"><i class="vote-arrow"></i></button>
-                                #end
-                            </div>
+
+                            <div class="zh_content">
                             <div class="content">
-                                <div >
-                                    <img class="content-img" src="$!{vo.news.image}" alt="">
+                                <div class="zh_h3">
+                                    <a th:text="${vo.get('news').title}" rel="external nofollow" th:href="'/question/answer/'+${vo.get('news').id}" href=""></a>
+                                </div>
+                                <div class="zh_con" >
+                                    <a th:href="'/question/answer/'+${vo.get('news').id}" href="">
+                                <div style="display: inline-block" >
+                                    <img class="content-img" th:src="@{${vo.get('news').image}}" src="" alt=""/>
                                 </div>
                                 <div class="content-main">
-                                    <h3 class="title">
-                                        <a target="_blank" rel="external nofollow" href="/news/$!{vo.news.id}">$!{vo.news.title}</a>
-                                    </h3>
-                                    <div class="meta">
-                                        $!{vo.news.link}
-                                        <span>
-                                            <i class="fa icon-comment"></i> $!{vo.news.commentCount}
-                                        </span>
+
+                                    <div class="meta js_zh_link" >
+                                        [[${#strings.abbreviate(vo.get('news').link,79)}]]<a class="full_text" th:if="${vo.get('length') gt 79}" th:href="'/question/answer/'+${vo.get('news').id}" href="" >查看全文<i class="icon-angle-down"></i></a>
                                     </div>
+
+                                </div>
+                                    </a>
                                 </div>
                             </div>
-                            <div class="user-info">
+                           <!-- <div class="user-info">
                                 <div class="user-avatar">
-                                    <a href="/user/$!{vo.user.id}/"><img width="32" class="img-circle" src="$!{vo.user.headUrl}"></a>
+                                    <a th:href="'/user/'+${vo.get('user').id}+'/'" href=""><img width="32" class="img-circle" th:src="@{${vo.get('user').headUrl}}"/></a>
                                 </div>
-
-                                <!--
-                                <div class="info">
-                                    <h5>分享者</h5>
-
-                                    <a href="http://nowcoder.com/u/251205"><img width="48" class="img-circle" src="http://images.nowcoder.com/images/20141231/622873_1420036789276_622873_1420036771761_%E8%98%91%E8%8F%87.jpg@0e_200w_200h_0c_1i_1o_90Q_1x" alt="Thumb"></a>
-
-                                    <h4 class="m-b-xs">冰燕</h4>
-                                    <a class="btn btn-default btn-xs" href="http://nowcoder.com/signin"><i class="fa icon-eye"></i> 关注TA</a>
-                                </div>
-                                -->
                             </div>
+                            <div class="subject-name">来自 <a th:text="${vo.get('user').name}" th:href="'/user/'+${vo.get('user').id}+'/'"></a></div>
+                            -->
+                            </div>
+                            <div class="pinlun">
+                            <div class="votebar">
 
-                            <div class="subject-name">来自 <a href="/user/$!{vo.user.id}/">$!{vo.user.name}</a></div>
+                                <button th:if="${vo.get('like') gt 0}" class="click-like up pressed" th:attr="data-id=${vo.get('news').id}" data-id="" title="赞同"><i class="vote-arrow"></i><span class="count">[[${'已赞同 '+vo.get('news').likeCount}]]</span></button>
+
+                                <button th:unless="${vo.get('like') gt 0}" class="click-like up" th:attr="data-id=${vo.get('news').id}" data-id="" title="赞同"><i class="vote-arrow"></i><span class="count">[[${'赞同 '+vo.get('news').likeCount}]]</span></button>
+
+                                <button th:if="${vo.get('like') lt 0}" class="click-dislike down pressed" th:attr="data-id=${vo.get('news').id}" data-id="" title="反对"><i class="vote-arrow"></i></button>
+
+                                <button th:unless="${vo.get('like') lt 0}"  class="click-dislike down" th:attr="data-id=${vo.get('news').id}" data-id="" title="反对"><i class="vote-arrow"></i></button>
+                                <div style="clear:both"></div>
+                            </div>
+                                <button class="zh_button zh_btn">
+                                    <span>
+                                        <i class="icon-comment"></i><a th:href="'/news/'+${vo.get('news').id}" href="">[[${' '+vo.get('news').commentCount+' 评论'}]]</a>
+                                    </span>
+
+                                </button>
+                                <button class=" zh_button">
+                                    <span>
+                                        <a th:href="${'javascript:void(0);onclick=star(this,'+vo.get('news').id+')'}" ><i class="juli icon-star"></i>收藏</a>
+                                    </span>
+
+                                </button>
+                                <button class="zh_button">
+                                    <span>
+                                        <i class="juli icon-share"></i>分享
+                                    </span>
+
+                                </button>
+                                <button class="zh_button">
+                                    <span>
+                                        <a th:href="${'javascript:void(0);onclick=star2(this,'+vo.get('news').id+')'}" > <i class="juli icon-heart"></i>喜欢</a>
+                                    </span>
+
+                                </button>
+                            </div>
                         </div>
 
-                        <!--
-                        <div class="alert alert-warning subscribe-banner" role="alert">
-                          《头条八卦》，每日 Top 3 通过邮件发送给你。      <a class="btn btn-info btn-sm pull-right" href="http://nowcoder.com/account/settings">立即订阅</a>
-                        </div>
-                        -->
-                    #if ($foreach.count == $vos.size()) ##最后有个元素要收尾
+
+
                     </div>
-                    #end
-
-                    #end
 
 
+
+
+
+
+                </div>
+            </div>
+                <div style="text-align: center"><a th:href="${'/index?pages='+pages}">到底了...下一页</a> </div>
+            </div>
+            <div class="user_tip">
+                <div class="user_tip_top" >
+                    <div class="tip_content">
+                        <a th:if="${vos!=null and !(vos.isEmpty()) }" th:href="'/question/answer/'+${vos[0].get('news').id}">
+                        <div class="tip_1_1"><img class="img_center" src="/images/img/file1.png"/></div>
+                        <div class="tip_2">回答问题</div>
+                        </a>
+                    </div>
+                    <div class="tip_content">
+                        <a href="">
+                        <div class="tip_1_2"><img class="img_center" src="/images/img/video.png"/></div>
+                        <div class="tip_2">发视频</div>
+                        </a>
+                    </div>
+                    <div class="tip_content">
+                        <a href="javascript:void(0)" onclick="playing2()">
+                        <div class="tip_1_3"><img class="img_center" src="/images/img/write.png"/></div>
+                        <div class="tip_2">写文章</div>
+                        </a>
+                    </div>
+                    <div class="tip_content">
+                        <a href="javascript:void(0)" onclick="playing2()">
+                        <div class="tip_1_4"><img class="img_center" src="/images/img/write_idea.png"/></div>
+                        <div class="tip_2">写想法</div>
+                        </a>
+                    </div>
+                    <div class="zh_clearfloat"></div>
+
+                </div>
+                <div class="user_tip_top1">
+                        <a href="">
+                            <div class="tip_content1">稍后答</div>
+                        </a>
+                        <a href="">
+                    <div class="tip_content1" style="border-left: #f4f4f5 solid 1px">草稿箱<span class="zh-num-2">0</span></div>
+                        </a>
+                    <div class="zh_clearfloat"></div>
+                </div>
+                <div class="user_tip_top2">
+                    <div class="tip_top2_1"><a href=""><i class="icon-user"></i><span> 创作者中心</span><span class="lv-style" th:if="${user!=null}" th:text="${' lv '+user.getLv()/10}">lv 0</span><span class="lv-style" th:if="${user==null}" >lv 0</span><i class="icon-angle-right i-left"></i></a></div>
+                    <div class="tip_top2_2">
+                        <div class="tip_content2">昨日被阅读数<br/>0</div>
+                        <div class="tip_content2" style="border-left: #f4f4f5 solid 1px">昨日赞同数<br/>0</div>
+                        <div class="zh_clearfloat"></div>
+                    </div>
+                    <div class="tip_top2_3">
+                        <ul><a href="/user/star/0"><li><i class="icon-star"></i><span> &nbsp;我的收藏 </span><span class="zh-num">[[${starNum}]]</span></li></a>
+                            <a th:if="${user!=null}" th:href="'/user/'+${user.id}" ><li><i class="icon-question"></i><span> &nbsp;我的提问 </span><span class="zh-num">[[${newsNum}]]</span></li></a>
+
+                            <a href=""><li><i class="icon-bullhorn"></i><span> &nbsp;我的回答 </span><span class="zh-num">[[${answerNum}]]</span></li></a>
+                            <a href="/user/star/2"><li><i class="icon-search"></i><span> &nbsp;关注的问题 </span><span class="zh-num">[[${starNum3}]]</span></li></a>
+                            <a href="/user/star/1"><li><i class="icon-heart"></i><span> &nbsp;喜欢 </span><span class="zh-num">[[${starNum2}]]</span></li></a>
+                            <a href=""><li><i class="icon-google-plus-sign"></i><span> &nbsp;我的邀请 </span><span class="zh-num">0</span></li></a>
+                            <a href=""><li><i class="icon-headphones"></i><span> &nbsp;帮助 </span></li></a>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
 
     </div>
+<script type="text/javascript" src="../static/scripts/main/site/clamp.js" th:src="@{/scripts/main/site/clamp.js}"></script>
 
 
-#if ($pop)
-<script>
-window.loginpop = $!{pop};
-</script>
+<script th:inline="javascript" th:if="${pop !=null}">
+window.loginpop = [[${pop}]];
+</script >
+<script th:inline="javascript" >
+   var user1 = [[${user}]];
+
+</script >
 <script type="text/javascript" src="/scripts/main/site/home.js"></script>
-#end
+<script th:inline="javascript">
+    var url1 = window.location.pathname;
+   if(url1=='/user/star/2')
+   {
+      document.getElementById('a1').classList.remove('zh_active');
+       document.getElementById('a2').classList.add('zh_active');}
+    var js_zh_link = document.getElementsByClassName('js_zh_link');
+    /*<![CDATA[*/
+    for(i=0;i<js_zh_link.length;i++){
+        $clamp(js_zh_link[i],{clamp:4,useNativeClamp:false,truncationChar:' ',
+            truncationHTML:'...'})
 
-#parse("footer.html")
+    }
+    function playing() {
+        if ([[${user}]]==null){
+            var e = document.createEvent("MouseEvents");
+            e.initEvent("click", true, true);
+            document.getElementById("js-login-1").dispatchEvent(e);
+            return false;}
+        else {
+            return true;}
+    }
+    function playing2() {
+        if ([[${user}]]!=null){
+            var e = document.createEvent("MouseEvents");
+            e.initEvent("click", true, true);
+            document.getElementById("js-tiwen").dispatchEvent(e);
+
+            return false;}
+        else {
+            return true;}
+    }
+    function doInit(){
+
+        var links = document.getElementsByClassName('user_tip')[0].getElementsByTagName('a');
+        var links2 = document.getElementsByClassName('pinlun')[0].getElementsByTagName('a');
+        var links3 = document.getElementsByClassName('jscroll-inner')[0].getElementsByTagName('a');
+
+        for(var i = 0; i < links.length; i++){
+            if ([[${user}]]==null){
+                links[i].setAttribute("href","javascript:void(0)");}
+            links[i].setAttribute("onclick","playing()");
+
+        }
+        for(var i = 0; i < links2.length; i++){
+            if ([[${user}]]==null){
+                links2[i].setAttribute("href","javascript:void(0)");}
+            links2[i].setAttribute("onclick","playing()");
+
+        }
+        for(var i = 0; i < links3.length; i++){
+            if ([[${user}]]==null){
+                links3[i].setAttribute("href","javascript:void(0)");}
+            links3[i].setAttribute("onclick","playing()");
+
+        }
+    }
+    /*]]>*/
+    doInit();
+
+</script>
+<div th:replace="footer::footer" ></div>
+</body>
+</html>

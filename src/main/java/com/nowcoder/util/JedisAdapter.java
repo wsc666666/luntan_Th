@@ -1,7 +1,7 @@
 package com.nowcoder.util;
 
 import com.alibaba.fastjson.JSON;
-import com.nowcoder.controller.IndexController;
+//import com.nowcoder.controller.IndexController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -12,7 +12,7 @@ import redis.clients.jedis.*;
 import java.util.List;
 
 /**
- * Created by nowcoder on 2016/7/13.
+ * Created by hasse on 2020/4/1
  */
 @Service
 public class JedisAdapter implements InitializingBean {

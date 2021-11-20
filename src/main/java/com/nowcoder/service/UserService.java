@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 /**
- * Created by nowcoder on 2016/7/2.
+ * Created by hasse on 2020/4/1
  */
 @Service
 public class UserService {
@@ -60,9 +60,11 @@ public class UserService {
         user.setSalt(UUID.randomUUID().toString().substring(0, 5));
         user.setZhName(username1);
         user.setJc(jc);
+
         String head = String.format("http://images.nowcoder.com/head/%dt.png", new Random().nextInt(1000));
         user.setHeadUrl(head);
         user.setPassword(ToutiaoUtil.MD5(password+user.getSalt()));
+        user.setLv(0);
         userDAO.addUser(user);
 
         // 登陆

@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 //import java.util.Properties;
 
 /**
- * Created by nowcoder on 2016/7/15. // course@nowcoder.com NKnk66
+ * Created by hasse on 2020/4/1
  */
 @Service
 public class MailSender{};

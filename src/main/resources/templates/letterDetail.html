@@ -20,7 +20,7 @@
 
 </head>
 <body>
-<div th:replace="header::header(${user})" ></div>
+<div th:replace="header::header(${user},${unReadNum})" ></div>
     <div th:inline="text" id="main">
         <div th:each="msg: ${messages}" class="container">
             <ul class="letter-chatlist">

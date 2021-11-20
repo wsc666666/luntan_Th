@@ -3,6 +3,7 @@ package com.nowcoder.async.handler;
 import com.nowcoder.async.EventHandler;
 import com.nowcoder.async.EventModel;
 import com.nowcoder.async.EventType;
+import com.nowcoder.model.EntityType;
 import com.nowcoder.model.Message;
 import com.nowcoder.model.User;
 import com.nowcoder.service.MessageService;
@@ -15,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by nowcoder on 2016/7/16.
+ * Created by hasse on 2020/4/1
  */
 @Component
 public class LikeHandler implements EventHandler {
@@ -25,15 +26,16 @@ public class LikeHandler implements EventHandler {
     @Autowired
     UserService userService;
 
+
     @Override
     public void doHandle(EventModel model) {
         Message message = new Message();
-        message.setFromId(3);
-        //message.setToId(model.getEntityOwnerId());
-        message.setToId(model.getActorId());
+        message.setFromId(model.getActorId());
+        message.setToId(model.getEntityOwnerId());
+       // message.setToId(model.getActorId());
         User user = userService.getUser(model.getActorId());
-        message.setContent("用户" + user.getName()
-                + "赞了你的资讯,http://127.0.0.1:8080/news/" + model.getEntityId());
+        message.setContent("用户" + user.getZhName()
+                + model.getType().typeToString(model.getType().getValue())+ EntityType.getType(model.getEntityType())+model.getEntityId());
         message.setCreatedDate(new Date());
         messageService.addMessage(message);
     }

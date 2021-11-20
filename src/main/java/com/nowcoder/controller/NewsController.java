@@ -1,6 +1,8 @@
 package com.nowcoder.controller;
 
 import com.nowcoder.dao.AnswerDAO;
+import com.nowcoder.dao.MessageDAO;
+import com.nowcoder.dao.UserDAO;
 import com.nowcoder.model.*;
 import com.nowcoder.service.*;
 import com.nowcoder.util.ToutiaoUtil;
@@ -26,15 +28,19 @@ import java.util.List;
 import static com.nowcoder.util.ToutiaoUtil.*;
 
 /**
- * Created by nowcoder on 2016/7/2.
+ * Created by hasse on 2020/4/1
  */
 @Controller
 public class NewsController {
     private static final Logger logger = LoggerFactory.getLogger(NewsController.class);
     @Resource
     AnswerDAO answerDAO;
+    @Resource
+    UserDAO userDAO;
     @Autowired
     NewsService newsService;
+    @Resource
+    MessageDAO messageDAO;
 
     @Autowired
     QiniuService qiniuService;
@@ -74,6 +80,9 @@ public class NewsController {
         }
         model.addAttribute("news", news);
         model.addAttribute("owner", userService.getUser(news.getUserId()));
+        if (hostHolder.getUser() != null) {
+            User user = hostHolder.getUser();
+            model.addAttribute("unReadNum",messageDAO.getConvesationUnreadCount1(user.getId()));}
         return "detail";
     }
 
@@ -100,6 +109,7 @@ public class NewsController {
         } catch (Exception e) {
             logger.error("增加评论失败" + e.getMessage());
         }
+
         return "redirect:/news/" + String.valueOf(newsId);
     }
 
@@ -223,9 +233,15 @@ public class NewsController {
             answer.setCreateDate(new Date());
             answer.setEntity(content);
             answer.setNewsId(newsId);
+            answer.setCommentCount("0");
+            answer.setLikeCount("0");
 
             if (hostHolder.getUser() != null) {
                 answer.setUserId(hostHolder.getUser().getId());
+                hostHolder.getUser().setLv( hostHolder.getUser().getLv()+1);
+            userDAO.updateLv(hostHolder.getUser());
+
+
             } else {
                 // 设置一个匿名用户
                 answer.setUserId(3);

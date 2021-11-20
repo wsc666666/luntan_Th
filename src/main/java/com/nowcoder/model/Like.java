@@ -1,5 +1,7 @@
 package com.nowcoder.model;
-
+/**
+ * Created by hasse on 2020/4/1
+ */
 public class Like {
     private int id;
     private int userId;

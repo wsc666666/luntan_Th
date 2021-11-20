@@ -17,12 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.HtmlUtils;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 /**
- * Created by nowcoder on 2016/7/9.
+ * Created by hasse on 2020/4/1
  */
 @Controller
 public class MessageController {
@@ -30,7 +31,8 @@ public class MessageController {
 
     @Autowired
     MessageService messageService;
-
+@Resource
+MessageDAO messageDAO;
     @Autowired
     UserService userService;
 
@@ -79,6 +81,9 @@ public class MessageController {
         } catch (Exception e) {
             logger.error("获取详情消息失败" + e.getMessage());
         }
+        if (hostHolder.getUser() != null) {
+            User user = hostHolder.getUser();
+            model.addAttribute("unReadNum",messageDAO.getConvesationUnreadCount1(user.getId()));}
         return "letterDetail";
     }
 

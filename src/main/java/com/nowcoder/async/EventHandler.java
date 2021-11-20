@@ -3,7 +3,7 @@ package com.nowcoder.async;
 import java.util.List;
 
 /**
- * Created by nowcoder on 2016/7/16.
+ * Created by hasse on 2020/4/1
  */
 public interface EventHandler {
     void doHandle(EventModel model);

@@ -1,9 +1,8 @@
 package com.nowcoder.model;
 
 import java.util.Date;
-
 /**
- * Created by rainday on 16/6/30.
+ * Created by hasse on 2020/4/1
  */
 public class News {
 
@@ -23,7 +22,7 @@ public class News {
 
   private int userId;
   private  String type;
-
+  private  int anCount;
   public String getFollowCount() {
     return followCount;
   }
@@ -51,7 +50,7 @@ public class News {
     this.anCount = anCount;
   }
 
-  private  int anCount;
+
 
   public String getType() {
     return type;

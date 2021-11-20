@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 /**
- * Created by nowcoder on 2016/7/9.
+ * Created by hasse on 2020/4/1
  */
 @Mapper
 public interface MessageDAO {
@@ -28,8 +28,10 @@ public interface MessageDAO {
 
     @Select({"select count(id) from ", TABLE_NAME, " where has_read=0 and to_id=#{userId} and conversation_id=#{conversationId}"})
     int getConvesationUnreadCount(@Param("userId") int userId, @Param("conversationId") String conversationId);
+    @Select({"select count(id) from ", TABLE_NAME, " where has_read=0 and to_id=#{userId}"})
+    int getConvesationUnreadCount1(@Param("userId") int userId);
 
-    @Select({"select ", INSERT_FIELDS, " ,count(id) as id from ( select * from ", TABLE_NAME, " where from_id=#{userId} or to_id=#{userId} order by id desc) tt group by conversation_id  order by created_date desc limit #{offset}, #{limit}"})
+    @Select({"select ", INSERT_FIELDS, " ,count(id) as id from ( select * from ", TABLE_NAME, " where to_id=#{userId} order by id desc) tt group by conversation_id  order by created_date desc limit #{offset}, #{limit}"})
     List<Message> getConversationList(@Param("userId") int userId,
                                       @Param("offset") int offset, @Param("limit") int limit);
 }

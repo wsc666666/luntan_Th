@@ -20,18 +20,20 @@
 
 </head>
 <script>
-
 </script>
 <body>
-<div th:replace="header::header(${user})" ></div>
+<div th:replace="header::header(${user},${unReadNum})" ></div>
     <div th:inline="text" id="main">
         <div class="container" id="daily" >
             <div class="container_right">
-          <div class="zh_top"> <ul class="zh_ul_top">
-              <li  ><a href="#" class="zh_active" >推荐</a></li>
-              <li  ><a href="#">关注</a></li>
+          <div class="zh_top">
+              <ul class="zh_ul_top" th:if="${type==null}">
+              <li  ><a id="a1" href="/" class="zh_active" >推荐</a></li>
+              <li  ><a id="a2" href="/user/star/2">关注</a></li>
               <li   ><a href="#">热榜</a></li>
-          </ul></div>
+          </ul>
+              <span th:if="${type!=null}" style="font-size: 18px;font-weight: bold;margin-left: 20px;line-height: 70px;">[[${'与'+type+'相关的话题'}]]</span>
+          </div>
             <div class="jscroll-inner">
                 <div th:each="vo: ${vos}" class="daily">
                     <div class="posts">
@@ -86,7 +88,7 @@
                                 </button>
                                 <button class=" zh_button">
                                     <span>
-                                        <i class="juli icon-star"></i>收藏
+                                        <a th:href="${'javascript:void(0);onclick=star(this,'+vo.get('news').id+')'}" ><i class="juli icon-star"></i>收藏</a>
                                     </span>
 
                                 </button>
@@ -98,12 +100,13 @@
                                 </button>
                                 <button class="zh_button">
                                     <span>
-                                        <i class="juli icon-heart"></i>喜欢
+                                        <a th:href="${'javascript:void(0);onclick=star2(this,'+vo.get('news').id+')'}" > <i class="juli icon-heart"></i>喜欢</a>
                                     </span>
 
                                 </button>
                             </div>
                         </div>
+
 
 
                     </div>
@@ -112,13 +115,15 @@
 
 
 
+
                 </div>
             </div>
+                <div style="text-align: center"><a th:href="${'/index?pages='+pages}">到底了...下一页</a> </div>
             </div>
             <div class="user_tip">
                 <div class="user_tip_top" >
                     <div class="tip_content">
-                        <a href="/question/answer/32">
+                        <a th:if="${vos!=null and !(vos.isEmpty()) }" th:href="'/question/answer/'+${vos[0].get('news').id}">
                         <div class="tip_1_1"><img class="img_center" src="/images/img/file1.png"/></div>
                         <div class="tip_2">回答问题</div>
                         </a>
@@ -130,13 +135,13 @@
                         </a>
                     </div>
                     <div class="tip_content">
-                        <a href="">
+                        <a href="javascript:void(0)" onclick="playing2()">
                         <div class="tip_1_3"><img class="img_center" src="/images/img/write.png"/></div>
                         <div class="tip_2">写文章</div>
                         </a>
                     </div>
                     <div class="tip_content">
-                        <a href="">
+                        <a href="javascript:void(0)" onclick="playing2()">
                         <div class="tip_1_4"><img class="img_center" src="/images/img/write_idea.png"/></div>
                         <div class="tip_2">写想法</div>
                         </a>
@@ -154,20 +159,21 @@
                     <div class="zh_clearfloat"></div>
                 </div>
                 <div class="user_tip_top2">
-                    <div class="tip_top2_1"><a href=""><i class="icon-user"></i><span> 创作者中心</span><span class="lv-style"> LV 1</span><i class="icon-angle-right i-left"></i></a></div>
+                    <div class="tip_top2_1"><a href=""><i class="icon-user"></i><span> 创作者中心</span><span class="lv-style" th:if="${user!=null}" th:text="${' lv '+user.getLv()/10}">lv 0</span><span class="lv-style" th:if="${user==null}" >lv 0</span><i class="icon-angle-right i-left"></i></a></div>
                     <div class="tip_top2_2">
                         <div class="tip_content2">昨日被阅读数<br/>0</div>
                         <div class="tip_content2" style="border-left: #f4f4f5 solid 1px">昨日赞同数<br/>0</div>
                         <div class="zh_clearfloat"></div>
                     </div>
                     <div class="tip_top2_3">
-                        <ul><a href=""><li><i class="icon-star"></i><span> &nbsp;我的收藏 </span><span class="zh-num">0</span></li></a>
-                            <a href=""><li><i class="icon-question"></i><span> &nbsp;我的提问 </span><span class="zh-num">0</span></li></a>
+                        <ul><a href="/user/star/0"><li><i class="icon-star"></i><span> &nbsp;我的收藏 </span><span class="zh-num">[[${starNum}]]</span></li></a>
+                            <a th:if="${user!=null}" th:href="'/user/'+${user.id}" ><li><i class="icon-question"></i><span> &nbsp;我的提问 </span><span class="zh-num">[[${newsNum}]]</span></li></a>
+
+                            <a href=""><li><i class="icon-bullhorn"></i><span> &nbsp;我的回答 </span><span class="zh-num">[[${answerNum}]]</span></li></a>
+                            <a href="/user/star/2"><li><i class="icon-search"></i><span> &nbsp;关注的问题 </span><span class="zh-num">[[${starNum3}]]</span></li></a>
+                            <a href="/user/star/1"><li><i class="icon-heart"></i><span> &nbsp;喜欢 </span><span class="zh-num">[[${starNum2}]]</span></li></a>
                             <a href=""><li><i class="icon-google-plus-sign"></i><span> &nbsp;我的邀请 </span><span class="zh-num">0</span></li></a>
-                            <a href=""><li><i class="icon-bullhorn"></i><span> &nbsp;我的回答 </span><span class="zh-num">0</span></li></a>
-                            <a href=""><li><i class="icon-search"></i><span> &nbsp;关注的问题 </span><span class="zh-num">0</span></li></a>
-                            <a href=""><li><i class="icon-heart"></i><span> &nbsp;喜欢 </span><span class="zh-num">0</span></li></a>
-                            <a href=""><li><i class="icon-headphones"></i><span> &nbsp;帮助 </span><span class="zh-num">0</span></li></a>
+                            <a href=""><li><i class="icon-headphones"></i><span> &nbsp;帮助 </span></li></a>
                         </ul>
                     </div>
                 </div>
@@ -183,9 +189,15 @@ window.loginpop = [[${pop}]];
 </script >
 <script th:inline="javascript" >
    var user1 = [[${user}]];
+
 </script >
 <script type="text/javascript" src="/scripts/main/site/home.js"></script>
 <script th:inline="javascript">
+    var url1 = window.location.pathname;
+   if(url1=='/user/star/2')
+   {
+      document.getElementById('a1').classList.remove('zh_active');
+       document.getElementById('a2').classList.add('zh_active');}
     var js_zh_link = document.getElementsByClassName('js_zh_link');
     /*<![CDATA[*/
     for(i=0;i<js_zh_link.length;i++){
@@ -198,6 +210,16 @@ window.loginpop = [[${pop}]];
             var e = document.createEvent("MouseEvents");
             e.initEvent("click", true, true);
             document.getElementById("js-login-1").dispatchEvent(e);
+            return false;}
+        else {
+            return true;}
+    }
+    function playing2() {
+        if ([[${user}]]!=null){
+            var e = document.createEvent("MouseEvents");
+            e.initEvent("click", true, true);
+            document.getElementById("js-tiwen").dispatchEvent(e);
+
             return false;}
         else {
             return true;}

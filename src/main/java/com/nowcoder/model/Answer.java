@@ -1,7 +1,9 @@
 package com.nowcoder.model;
 
 import java.util.Date;
-
+/**
+ * Created by hasse on 2020/4/1
+ */
 public class Answer {
     private int id;
 

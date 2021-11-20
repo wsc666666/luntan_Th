@@ -5,9 +5,8 @@ import com.nowcoder.model.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
-
 /**
- * Created by nowcoder on 2016/7/2.
+ * Created by hasse on 2020/4/1
  */
 @Mapper
 public interface NewsDAO {
@@ -30,4 +29,9 @@ public interface NewsDAO {
 
     List<News> selectByUserIdAndOffset(@Param("userId") int userId, @Param("offset") int offset,
                                        @Param("limit") int limit);
+    @Select({"SELECT ",SELECT_FIELDS," FROM ",TABLE_NAME," WHERE type LIKE '%${type}%'"})
+    List <News> selectByType(@Param("type") String type);
+    @Select({"SELECT ",SELECT_FIELDS," FROM ",TABLE_NAME," WHERE link LIKE '%${all}%' or title LIKE '%${all}%'"})
+    List <News> selectByAll(@Param("all") String all);
+
 }

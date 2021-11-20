@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
- * Created by nowcoder on 2016/7/3.
+ * Created by hasse on 2020/4/1
  */
 public class ToutiaoUtil {
     private static final Logger logger = LoggerFactory.getLogger(ToutiaoUtil.class);
 
-    public static String TOUTIAO_DOMAIN = "http://127.0.0.1:8080/";
+    public static String TOUTIAO_DOMAIN = "http://81.68.234.239:8080/";
     public static String IMAGE_DIR = "I:/upload/";
     public static String IMAGE_DIR2 = "/usr/upload/";
     public static String[] IMAGE_FILE_EXTD = new String[] {"png", "bmp", "jpg", "jpeg"};

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 /**
- * Created by nowcoder on 2016/6/26.
+ * Created by hasse on 2020/4/1
  */
 @Aspect
 @Component
@@ -21,12 +21,13 @@ public class LogAspect {
     @Before("execution(* com.nowcoder.controller.*Controller.*(..))")
     public void beforeMethod(JoinPoint joinPoint) {
         StringBuilder sb = new StringBuilder();
-        for (Object arg : joinPoint.getArgs()) {
-            sb.append("arg:" + arg.toString() + "|");
+        if (joinPoint.getArgs() != null) {
+            for (Object arg : joinPoint.getArgs()) {
+                sb.append("arg:" + arg.toString() + "|");
+            }
+            logger.info("before method: " + sb.toString());
         }
-        logger.info("before method: " + sb.toString());
     }
-
     @After("execution(* com.nowcoder.controller.IndexController.*(..))")
     public void afterMethod(JoinPoint joinPoint) {
         logger.info("after method: ");

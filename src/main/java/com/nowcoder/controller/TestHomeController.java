@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+/**
+ * Created by hasse on 2020/4/1
+ */
 @Controller
 public class TestHomeController {
     @RequestMapping("/footer")

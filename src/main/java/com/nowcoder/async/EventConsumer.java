@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by nowcoder on 2016/7/16.
+ * Created by hasse on 2020/4/1
  */
 @Service
 public class EventConsumer implements InitializingBean, ApplicationContextAware {

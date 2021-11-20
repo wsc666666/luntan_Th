@@ -21,9 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 /**
- * Created by nowcoder on 2016/7/2.
+ * Created by hasse on 2020/4/1
  */
 @Controller
 public class LoginController {

@@ -4,12 +4,8 @@ import com.nowcoder.controller.LoginController;
 import com.nowcoder.dao.NewsDAO;
 import com.nowcoder.model.News;
 import com.nowcoder.util.ToutiaoUtil;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,8 +18,9 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.UUID;
 
+import static com.nowcoder.util.ToutiaoUtil.TOUTIAO_DOMAIN;
 /**
- * Created by nowcoder on 2016/7/2.
+ * Created by hasse on 2020/4/1
  */
 @Service
 public class NewsService {
@@ -63,17 +60,7 @@ public class NewsService {
             Files.copy(file.getInputStream(), new File(ToutiaoUtil.IMAGE_DIR2 + fileName).toPath(),
                     StandardCopyOption.REPLACE_EXISTING);
         }
-       //String realPath=request.getServletContext().getRealPath("")+"upload";
-       // logger.error(realPath);
-
-       // File dir = new File(realPath);
-//        if (!dir.exists()) {// 判断目录是否存在
-//            dir.mkdir();
-//        }
-//        Files.copy(file.getInputStream(), new File(realPath+File.separator+fileName).toPath(),
-//                      StandardCopyOption.REPLACE_EXISTING);
-
-        return ToutiaoUtil.TOUTIAO_DOMAIN + "image?name=" + fileName;
+        return TOUTIAO_DOMAIN + "image?name=" + fileName;
     }
 
     public int updateCommentCount(int id, int count) {

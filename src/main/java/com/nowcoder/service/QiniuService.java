@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 /**
- * Created by nowcoder on 2016/7/7.
+ * Created by hasse on 2020/4/1
  */
 @Service
 public class QiniuService {

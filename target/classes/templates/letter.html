@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" style="background: #f6f6f6">
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>道乎</title>
     <link rel="stylesheet" type="text/css" href="../static/styles/bootstrap.min.css" th:href="@{/styles/bootstrap.min.css}"/>
@@ -20,11 +20,11 @@
 
 </head>
 <body>
-<div th:replace="header::header(${user})" ></div>
+<div th:replace="header::header(${user},${unReadNum})" ></div>
     <div th:inline="text" id="main">
-        <div class="container">
-            <ul th:each="conversation: ${conversations}" class="letter-list">
-                <li id="conversation-item-10005_622873">
+        <div class="l_container">
+            <ul  class="letter-list">
+                <li th:each="conversation: ${conversations}" id="conversation-item-10005_622873">
                     <a class="letter-link" th:href="'/msg/detail?conversationId='+${conversation.get('conversation').conversationId}"></a>
                     <div class="letter-info">
                         <span class="l-time">[[${#dates.format(conversation.get('conversation').createdDate,'yyyy年MM月dd日 HH:mm:ss')}]]</span>
@@ -46,8 +46,8 @@
                         </a>
                     </div>
                     <div class="letter-detail">
-                        <a th:title="${conversation.get('user').name}" class="letter-name level-color-1">
-                            [[${conversation.get('user').name}]]
+                        <a th:title="${conversation.get('user').zhName}" class="letter-name level-color-1">
+                            [[${conversation.get('user').zhName}]]
                         </a>
                         <p class="letter-brief">
                             <a th:href="'/msg/detail?conversationId='+${conversation.get('conversation').conversationId}">
@@ -61,45 +61,7 @@
 
         </div>
         <script type="text/javascript">
-          $(function(){
 
-            // If really is weixin
-            $(document).on('WeixinJSBridgeReady', function() {
-
-              $('.weixin-qrcode-dropdown').show();
-
-              var options = {
-                "img_url": "",
-                "link": "http://nowcoder.com/j/wt2rwy",
-                "desc": "",
-                "title": "读《Web 全栈工程师的自我修养》"
-              };
-
-              WeixinJSBridge.on('menu:share:appmessage', function (argv){
-                WeixinJSBridge.invoke('sendAppMessage', options, function (res) {
-                  // _report('send_msg', res.err_msg)
-                });
-              });
-
-              WeixinJSBridge.on('menu:share:timeline', function (argv) {
-                WeixinJSBridge.invoke('shareTimeline', options, function (res) {
-                  // _report('send_msg', res.err_msg)
-                });
-              });
-
-              // $(window).on('touchmove scroll', function() {
-              //   if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-              //     $('div.backdrop').show();
-              //     $('div.share-help').show();
-              //   } else {
-              //     $('div.backdrop').hide();
-              //     $('div.share-help').hide();
-              //   }
-              // });
-
-            });
-
-          })
         </script>
     </div>
 <div th:replace="footer::footer" ></div>

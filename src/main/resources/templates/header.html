@@ -22,7 +22,7 @@
 <body class="welcome_index">
 
 
-<header th:fragment="header(user)" class="navbar navbar-default navbar-static-top bs-docs-nav post_top" id="top" role="banner">
+<header th:fragment="header(user,unReadNum)" class="navbar navbar-default navbar-static-top bs-docs-nav post_top" id="top" role="banner">
     <div class="container">
         <div class="navbar-header">
 
@@ -39,9 +39,9 @@
                 <li class=""><a href="">发现</a></li>
                 <li  class=""><a href="">等你来答</a></li>
                 <li   class="bar1" id="input1">
-                    <form>
-                        <input  type="text" placeholder="请输入您要搜索的内容..."/>
-                        <button id="btn_input_1_1" type="submit"></button></form></li></ul>
+                    <form >
+                        <input  type="text" id="inputTop" placeholder="请输入您要搜索的内容..."/>
+                        <button id="btn_input_1_1" ></button></form></li></ul>
 
         </nav>
 
@@ -50,9 +50,9 @@
             <ul class="nav navbar-nav navbar-right " style="margin-right: 30px">
 
                 <li th:if="${user !=null}" class="js-share" ><a href="javascript:void(0);">
-                    <button type="button" class="zh_head_button">提问</button></a></li>
+                    <button type="button" id="js-tiwen" class="zh_head_button">提问</button></a></li>
                 <li th:if="${user !=null}" >
-                    <span class="msg-num2">20</span>
+                    <span class="msg-num2" th:inline="text">[[${unReadNum}]]</span>
                     <a href="/msg/list"><img class="zh_duihua" alt="对话" src="../static/images/img/zh_duihua.png" th:src="@{/images/img/zh_duihua.png}"/></a></li>
                 <li th:if="${user !=null}" class=""><a th:href="'/user/'+${user.id}" th:text="${user.zhName}">用户名</a></li>
                 <li th:if="${user !=null}" ><a href="/logout/"><img class="zh_edit" alt="退出" src="../static/images/img/exit.png" th:src="@{/images/img/exit.png}"/></a></li>
@@ -65,7 +65,7 @@
     </div>
 
 
-    <script>
+    <script th:inline="javascript">
         window.addEventListener('scroll', function(){
             let t = $('body, html').scrollTop();   // 目前监听的是整个body的滚动条距离
             if(t>0){
@@ -74,7 +74,26 @@
                 $('.post_top').removeClass('post_top_active')
             }
         })
-
+    document.getElementById('btn_input_1_1').onclick=function () {
+        if ([[${user}]]==null){
+            var e = document.createEvent("MouseEvents");
+            e.initEvent("click", true, true);
+            document.getElementById("js-login-1").dispatchEvent(e);
+            return false;}
+        var text=document.getElementById('inputTop').nodeValue;
+        $.ajax({
+            url: '/sou',
+            method: 'post',
+            data: {text: text},
+            dataType: 'json'
+        }).done(function (oResult) {
+            alert('已关注');
+        }).fail(function (oResult) {
+            alert('出现错误，请重试');
+        }).always(function () {
+            this.requesting = false;
+        });
+    }
     </script>
 </header>
 </body>

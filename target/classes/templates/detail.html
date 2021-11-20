@@ -19,7 +19,7 @@
     <script type="text/javascript" src="../static/scripts/main/util/action.js" th:src="@{/scripts/main/util/action.js}"></script>
 
 </head>
-<div th:replace="header::header(${user})" ></div>
+<div th:replace="header::header(${user},${unReadNum})" ></div>
 <body >
 <div th:inline="text" id="main">
     <div class="zh_detail">

@@ -20,7 +20,7 @@
     <script type="text/javascript" src="../static/scripts/wangEditor.js" th:src="@{/scripts/wangEditor.js}"></script>
 
 </head>
-<div th:replace="header::header(${user})" ></div>
+<div th:replace="header::header(${user},${unReadNum})" ></div>
 <body>
 <div th:inline="text" id="question-main">
     <div class="cj-top">
@@ -28,16 +28,16 @@
         <div class="cj-top1">
             <div class="cj-top1-left">
                 <ul class="heng-xiang">
-                    <li  th:each="t: ${type}"><a class="border-radius">[[${t}]]</a></li>
+                    <li  th:each="t: ${type}"><a th:href="'/type/'+${t}" class="border-radius">[[${t}]]</a></li>
                 </ul>
             </div>
             <div class="cj-top1-right">
                 <div class="cj-top1-right-l">
                     <div class="up-cj">关注者</div>
-                    <div class="down-cj">[[${news.followCount}]]</div></div>
+                    <div class="down-cj">[[${followCount}]]</div></div>
                 <div class="cj-top1-right-r">
-                <div class="up-cj">被浏览</div>
-                <div class="down-cj">[[${news.readCount}]]</div>
+                <div class="up-cj">获赞数</div>
+                <div class="down-cj">[[${news.likeCount}]]</div>
                 </div>
             </div>
             <div class="zh_clearfloat"></div>
@@ -47,11 +47,12 @@
             <a target="_blank"  th:text="${news.title}" rel="external nofollow" th:href="'/news/'+${news.userId}" href="">这是问题?</a>
             </div>
             <div class="meta js_zh_link" style="margin-left:20px;margin-top: 30px ">
-                [[${#strings.abbreviate(news.link,135)}]]<a class="full_text" th:if="${length gt 135}" th:href="'/news/'+${news.id}" href="" >查看全文<i class="icon-angle-down"></i></a>
+                [[${#strings.abbreviate(news.link,135)}]]<a class="full_text"
+                 th:if="${length gt 135}" th:href="'/news/'+${news.id}" href="" >查看全文<i class="icon-angle-down"></i></a>
             </div>
         </div>
         <div class="cj-top3">
-            <a href=""><div class="btn btn-info">关注问题</div></a>
+            <a href="javascript:void(0);" onclick="focus_question()"><div class="btn btn-info">关注问题</div></a>
             <a href="javascript:void(0);" onclick="js_edit()"><div class="btn btn-default">&nbsp;<i class="icon-pencil"></i> 写回答</div></a>
             <a href=""><div class="btn btn-anwser ">&nbsp;<i class="icon-plus"></i> 邀请回答</div></a>
             <button class="zh_button zh_btn">
@@ -82,7 +83,7 @@
     <div class="zh_detail" th:if="${news.anCount lt 1}">
 
         <div class="detail_right" style="background-color: #ffffff;">
-    <div class="edit-div">
+    <div class="edit-div" id="edit-div">
         <div class="user_content">
             <div class="user_head"><a th:href="${'/user/'+user.id}"><img width="32" class="img-circle" th:src="${user.headUrl}"/></a></div>
             <div class="user_right">
@@ -118,13 +119,29 @@
     </div>
     <div class="zh_detail" th:each="vo: ${vos}">
     <div class="detail_right">
-    <div class="zh_container">
 
+    <div class="zh_container">
+        <div class="edit-div" id="edit-div" >
+            <div class="user_content">
+                <div class="user_head"><a th:href="${'/user/'+user.id}"><img width="32" class="img-circle" th:src="${user.headUrl}"/></a></div>
+                <div class="user_right">
+                    <div  class="user_name"><a th:href="${'/user/'+user.id}">[[${user.zhName}]]</a></div>
+                    <div class="introduce">[[${user.jc}]]</div>
+                </div>
+                <div class="zh_clearfloat"></div>
+            </div>
+            <div class="an-center">
+                <div id="an-div1" class="zh-toolbar"  ></div>
+                <div id="an-div2" class="zh-text" >
+                </div>
+                <div><button id="js-btn-commit" class="btn btn-info btn-right">提交回答</button></div>
+            </div>
+        </div>
 
         <div class="all-anwser" th:unless="${news.anCount lt 1}">
             <div class="anwser-top">
                 <span class="an-top-l">[[${news.anCount}]]个回答</span>
-
+<!--
                     <span class="an-top-r"> <a href="javascript:void(0);" onclick="showlist()" id="sort-show">默认排序&nbsp;&nbsp;<i class="icon-sort"></i></a>
                     <div id="sort-ul"  tabindex="-1" onblur="closelist()">
                         <ul>
@@ -132,7 +149,7 @@
                             <li><a href="javascript:void(0);" onclick="sorttime()">时间排序</a></li>
                         </ul>
                     </div>
-                </span>
+                </span>-->
 
             </div>
         </div>
@@ -153,8 +170,11 @@
                                     <div class="num-zantong">[[${vo.get('answer').likeCount}]]人已赞同该回答</div>
                                 </div>
 
-                                <div class="detail_meta">
-                                    [[${vo.get('answer').entity}]]
+
+
+
+                                <div class="detail_meta" th:utext="${vo.get('answer').entity}">
+                                   这里是内容
                                 </div>
                             </div>
                            <div class="zh_clearfloat"></div>
@@ -175,7 +195,7 @@
                 </div>
                 <button class="zh_button">
                                     <span>
-                                        <i class="icon-comment"></i><a th:href="'/news/'+${vo.get('answer').id}" href="">[[${' '+vo.get('answer').commentCount+' 评论'}]]</a>
+                                        <i class="icon-comment"></i><a th:href="'/news/'+${vo.get('answer').newsId}" href="">[[${' '+vo.get('answer').commentCount+' 评论'}]]</a>
                                     </span>
 
                 </button>
@@ -238,7 +258,7 @@
             </div>
 
         </div>
-        <div class="next_answer"><a><br>下一个回答</br><i class="icon-double-angle-down"></i></a></div>
+        <div class="next_answer"><a th:href="${'/question/answer/'+news.id+'?page='+page}"><br>下一个回答</br><i class="icon-double-angle-down"></i></a></div>
         </div>
     </div>
     <div class="user_tip3">
@@ -255,17 +275,15 @@
             <div class="up-cj">回答</div>
             <div class="down-cj">[[${vo.get('answer_count')}]]</div></div>
         <div class="cj-top1-right-r">
-            <div class="up-cj">关注者</div>
-            <div class="down-cj">0</div>
+            <div class="up-cj">提问</div>
+            <div class="down-cj">[[${newsNum}]]</div>
     </div>
     <div class="zh_clearfloat"></div>
         <div class="about-owner" style="border-bottom:#f6f6f6 solid 1px;">相关问题</div>
         <div class="about-question">
         <ul>
-            <li><a href="">第一个问题第一个问题第一个问题?&nbsp;&nbsp;&nbsp;</a>0个回答</li>
-            <li><a href="">第一个问题第一个问题第一个问题第一个问题第一个问题第一个问题?&nbsp;&nbsp;&nbsp;</a>0个回答</li>
-            <li><a href="">第一个第一个问题第一个问题问题?&nbsp;&nbsp;&nbsp;</a>0个回答</li>
-            <li><a href="">第一个问题?&nbsp;&nbsp;&nbsp;</a>0个回答</li>
+            <li th:each="n : ${newsList}"><a th:href="${'/question/answer/'+n.getId()}" >[[${n.title}]]&nbsp;&nbsp;&nbsp;</a>[[${n.anCount}]]个回答</li>
+
         </ul>
         </div>
     </div>
@@ -309,22 +327,6 @@
     editor.customConfig.uploadFileName = 'file';
     editor.create();
 
-    document.getElementById('js-btn-commit').onclick=function(){
-        var content=editor.txt.text();
-        alert(news1Id);
-        $.ajax({
-            url: '/user/addAnswer/',
-            method: 'post',
-            data: {content: content,newsId: news1Id},
-            dataType: 'json'
-        }).done(function (oResult) {
-            window.location.reload([bForceGet]);
-        }).fail(function (oResult) {
-            alert('出现错误，请重试');
-        }).always(function () {
-            that.requesting = false;
-        });
-    }
 
 </script>
 <div th:replace="footer::footer" ></div>

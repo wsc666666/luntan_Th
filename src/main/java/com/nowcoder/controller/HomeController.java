@@ -1,15 +1,13 @@
 package com.nowcoder.controller;
 
-import com.nowcoder.dao.AnswerDAO;
-import com.nowcoder.dao.CommentDAO;
-import com.nowcoder.dao.NewsDAO;
-import com.nowcoder.dao.UserDAO;
+import com.nowcoder.dao.*;
 import com.nowcoder.model.*;
 import com.nowcoder.service.LikeService;
 import com.nowcoder.service.NewsService;
 import com.nowcoder.service.UserService;
 import com.nowcoder.util.MailSender;
 import com.nowcoder.util.ToutiaoUtil;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +24,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by nowcoder on 2016/7/2.
+ * Created by hasse on 2020/4/1
  */
 @Controller
 public class HomeController {
+    @Resource
+    private MessageDAO messageDAO;
     @Resource
     private CommentDAO commentDAO;
     @Resource
@@ -81,24 +81,304 @@ public class HomeController {
 
     @RequestMapping(path = {"/", "/index"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String index(Model model,
+                        @RequestParam(value = "pages",defaultValue = "0") int pages,
                         @RequestParam(value = "pop", defaultValue = "0") int pop) {
         User user=null;
-        model.addAttribute("vos", getNews(0, 0, 10));
+        model.addAttribute("vos", getNews(0, pages, 10));
 
         if (hostHolder.getUser() != null) {
             user = hostHolder.getUser();
-            pop=0;}
-            model.addAttribute("user", user);
+            model.addAttribute("answerNum",userDAO.countById(user.getId()));
+            model.addAttribute("newsNum",userDAO.countNewsById(user.getId()));
+            model.addAttribute("unReadNum",messageDAO.getConvesationUnreadCount1(user.getId()));
+            pop=0;
+            if(user.getStar()==null){
 
+                model.addAttribute("starNum",0);
+            }else {
+                String[] starList= user.getStar().split(",");
+                model.addAttribute("starNum",starList.length);}
+            if(user.getStar2()==null){
+                model.addAttribute("starNum2",0);}
+            else { String[] starList2= user.getStar2().split(",");
+                model.addAttribute("starNum2",starList2.length);
+            }
+            if(user.getStar3()==null){
+                model.addAttribute("starNum3",0);}
+            else { String[] starList3= user.getStar3().split(",");
+                model.addAttribute("starNum3",starList3.length);
+            }
+
+
+        }
+        else { model.addAttribute("unReadNum",0);
+            model.addAttribute("starNum",0);
+            model.addAttribute("starNum3",0);
+            model.addAttribute("starNum2",0);
+            model.addAttribute("answerNum",0);
+            model.addAttribute("newsNum",0);}
+
+            model.addAttribute("user", user);
+        model.addAttribute("pages",pages+1);
         model.addAttribute("pop",pop);
+
+
+
         return "home";
     }
 
     @RequestMapping(path = {"/user/{userId}"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public String userIndex(Model model, @PathVariable("userId") int userId) {
-        model.addAttribute("vos", getNews(userId, 0, 10));
+    public String userIndex(Model model,
+                            @RequestParam(value = "pages",defaultValue = "0") int pages,
+                            @PathVariable("userId") int userId) {
+
+        model.addAttribute("pages",pages+1);
+
+        User user = hostHolder.getUser();
+        if(userId==8080){
+        model.addAttribute("vos", getNews(user.getId(), 0, 10));}
+        else { model.addAttribute("vos", getNews(userId, 0, 10));}
+        if (hostHolder.getUser() != null) {
+            model.addAttribute("answerNum",userDAO.countById(user.getId()));
+            model.addAttribute("newsNum",userDAO.countNewsById(user.getId()));
+        model.addAttribute("unReadNum",messageDAO.getConvesationUnreadCount1(user.getId()));}
+        if(user.getStar()==null){
+            model.addAttribute("unReadNum",messageDAO.getConvesationUnreadCount1(user.getId()));
+            model.addAttribute("starNum",0);
+        }else {
+            String[] starList= user.getStar().split(",");
+            model.addAttribute("starNum",starList.length);}
+        if(user.getStar2()==null){
+            model.addAttribute("starNum2",0);}
+            else { String[] starList2= user.getStar2().split(",");
+            model.addAttribute("starNum2",starList2.length);
+        }
+        if(user.getStar3()==null){
+            model.addAttribute("starNum3",0);}
+        else { String[] starList3= user.getStar3().split(",");
+            model.addAttribute("starNum3",starList3.length);
+        }
+
         return "home";
     }
+    @RequestMapping(path = {"/type/{type}"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public String typeIndex(Model model, @PathVariable("type") String type) {
+        User user = hostHolder.getUser();
+        model.addAttribute("answerNum",userDAO.countById(user.getId()));
+        model.addAttribute("newsNum",userDAO.countNewsById(user.getId()));
+        if(user.getStar()==null){
+            model.addAttribute("unReadNum",messageDAO.getConvesationUnreadCount1(user.getId()));
+            model.addAttribute("starNum",0);
+        }else {
+        String[] starList= user.getStar().split(",");
+        model.addAttribute("starNum",starList.length);}
+        if(user.getStar2()==null){
+            model.addAttribute("starNum2",0);}
+            else { String[] starList2= user.getStar2().split(",");
+            model.addAttribute("starNum2",starList2.length);
+        }
+        if(user.getStar3()==null){
+            model.addAttribute("starNum3",0);}
+        else { String[] starList3= user.getStar3().split(",");
+            model.addAttribute("starNum3",starList3.length);
+        }
+        List<News> newsList=new ArrayList<>();
+            List<News> newsAll=newsDAO.selectByType(type);
+            for(News n : newsAll){
+                newsList.add(n);
+            }
+
+    int localUserId = hostHolder.getUser() != null ? hostHolder.getUser().getId() : 0;
+    List<ViewObject> vos = new ArrayList<>();
+        for (News news : newsList) {
+        ViewObject vo = new ViewObject();
+        int length=news.getLink().length();
+        vo.set("length",length);
+        news.setLink(userService.getUser(news.getUserId()).getZhName()+":"+news.getLink());
+        vo.set("news", news);
+        vo.set("user", userService.getUser(news.getUserId()));
+        if (localUserId != 0) {
+            vo.set("like", likeService.getLikeStatus(localUserId, EntityType.ENTITY_NEWS, news.getId()));
+        } else {
+            vo.set("like", 0);
+        }
+        News news2=(News) vo.get("news");
+
+        System.out.println(news2.getTitle());
+        vos.add(vo);
+    }
+
+
+        model.addAttribute("vos", vos);
+        model.addAttribute("type",type);
+        if (hostHolder.getUser() != null) {
+             user = hostHolder.getUser();
+            model.addAttribute("unReadNum",messageDAO.getConvesationUnreadCount1(user.getId()));}
+        return "home";
+    }
+
+
+    @RequestMapping(path = {"/sou"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public String alltype(Model model, @PathVariable("text") String type) {
+        User user = hostHolder.getUser();
+        model.addAttribute("answerNum",userDAO.countById(user.getId()));
+        model.addAttribute("newsNum",userDAO.countNewsById(user.getId()));
+        if(user.getStar()==null){
+            model.addAttribute("unReadNum",messageDAO.getConvesationUnreadCount1(user.getId()));
+            model.addAttribute("starNum",0);
+        }else {
+            String[] starList= user.getStar().split(",");
+            model.addAttribute("starNum",starList.length);}
+        if(user.getStar2()==null){
+            model.addAttribute("starNum2",0);}
+        else { String[] starList2= user.getStar2().split(",");
+            model.addAttribute("starNum2",starList2.length);
+        }
+        if(user.getStar3()==null){
+            model.addAttribute("starNum3",0);}
+        else { String[] starList3= user.getStar3().split(",");
+            model.addAttribute("starNum3",starList3.length);
+        }
+        List<News> newsList=new ArrayList<>();
+        List<News> newsAll=newsDAO.selectByAll(type);
+        for(News n : newsAll){
+            newsList.add(n);
+        }
+
+        int localUserId = hostHolder.getUser() != null ? hostHolder.getUser().getId() : 0;
+        List<ViewObject> vos = new ArrayList<>();
+        for (News news : newsList) {
+            ViewObject vo = new ViewObject();
+            int length=news.getLink().length();
+            vo.set("length",length);
+            news.setLink(userService.getUser(news.getUserId()).getZhName()+":"+news.getLink());
+            vo.set("news", news);
+            vo.set("user", userService.getUser(news.getUserId()));
+            if (localUserId != 0) {
+                vo.set("like", likeService.getLikeStatus(localUserId, EntityType.ENTITY_NEWS, news.getId()));
+            } else {
+                vo.set("like", 0);
+            }
+            News news2=(News) vo.get("news");
+
+            System.out.println(news2.getTitle());
+            vos.add(vo);
+        }
+
+
+        model.addAttribute("vos", vos);
+        model.addAttribute("type",type);
+        if (hostHolder.getUser() != null) {
+            user = hostHolder.getUser();
+            model.addAttribute("unReadNum",messageDAO.getConvesationUnreadCount1(user.getId()));}
+        return "home";
+    }
+
+
+
+
+    @RequestMapping(path = {"/user/star/{starType}"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public String starIndex(Model model,@PathVariable("starType") int starType) {
+        User user;
+        List<News> nlist=new ArrayList<>();
+        if (hostHolder.getUser() != null) {
+            user = hostHolder.getUser();
+            model.addAttribute("answerNum",userDAO.countById(user.getId()));
+            model.addAttribute("newsNum",userDAO.countNewsById(user.getId()));
+            model.addAttribute("unReadNum", messageDAO.getConvesationUnreadCount1(user.getId()));
+            if (starType == 0) {
+                if (user.getStar2()==null)
+                    model.addAttribute("starNum2",0);
+                else
+                { model.addAttribute("starNum2", user.getStar2().split(",").length);}
+                if (user.getStar3()==null)
+                    model.addAttribute("starNum3",0);
+                else
+                { model.addAttribute("starNum3", user.getStar3().split(",").length);}
+                if (user.getStar() == null) {
+                    model.addAttribute("starNum", 0);
+                    return "home";
+                }else{
+                String[] starList = user.getStar().split(",");
+                for (String s : starList) {
+                    nlist.add(newsDAO.getById(Integer.valueOf(s)));
+                }
+                model.addAttribute("starNum", starList.length);
+                }
+            }
+         if (starType == 1) {
+                if (user.getStar()==null)
+                    model.addAttribute("starNum",0);
+                else
+                { model.addAttribute("starNum", user.getStar().split(",").length);}
+                if (user.getStar3()==null)
+                    model.addAttribute("starNum3",0);
+                else
+                { model.addAttribute("starNum3", user.getStar3().split(",").length);}
+                if (user.getStar2() == null) {
+                    model.addAttribute("starNum2", 0);
+                    return "home";
+                }else{
+                    String[] starList = user.getStar2().split(",");
+                    for (String s : starList) {
+                        nlist.add(newsDAO.getById(Integer.valueOf(s)));
+                    }
+                    model.addAttribute("starNum2", starList.length);
+                }
+            }
+            if (starType == 2) {
+                if (user.getStar2()==null)
+                    model.addAttribute("starNum2",0);
+                else
+                { model.addAttribute("starNum2", user.getStar2().split(",").length);}
+                if (user.getStar()==null)
+                    model.addAttribute("starNum",0);
+                else
+                { model.addAttribute("starNum", user.getStar().split(",").length);}
+                if (user.getStar3() == null) {
+                    model.addAttribute("starNum3", 0);
+                    return "home";
+                }else{
+                    String[] starList = user.getStar3().split(",");
+                    for (String s : starList) {
+                        nlist.add(newsDAO.getById(Integer.valueOf(s)));
+                    }
+                    model.addAttribute("starNum3", starList.length);
+                }
+            }
+
+
+        int localUserId = hostHolder.getUser() != null ? hostHolder.getUser().getId() : 0;
+        List<ViewObject> vos = new ArrayList<>();
+        for (News news : nlist) {
+            ViewObject vo = new ViewObject();
+            int length=news.getLink().length();
+            vo.set("length",length);
+            news.setLink(userService.getUser(news.getUserId()).getZhName()+":"+news.getLink());
+            vo.set("news", news);
+            vo.set("user", userService.getUser(news.getUserId()));
+            if (localUserId != 0) {
+                vo.set("like", likeService.getLikeStatus(localUserId, EntityType.ENTITY_NEWS, news.getId()));
+            } else {
+                vo.set("like", 0);
+            }
+            News news2=(News) vo.get("news");
+
+            System.out.println(news2.getTitle());
+            vos.add(vo);
+        }
+
+        model.addAttribute("vos", vos);  }
+        if (hostHolder.getUser() != null) {
+             user = hostHolder.getUser();
+            model.addAttribute("unReadNum",messageDAO.getConvesationUnreadCount1(user.getId()));}
+        return "home";
+
+
+    }
+
+
+
     @RequestMapping(path = {"/regist"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String userIndex(Model model) {
         return "login";
@@ -107,8 +387,9 @@ public class HomeController {
 
 
     @RequestMapping(path = {"/question/answer/{newsId}"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public String qsAnswer(Model model,@PathVariable("newsId") int newsId) {
-        List<Answer> answers=answerDAO.selectByNewsIdAndOffset(newsId,0,1);
+    public String qsAnswer(Model model,@PathVariable("newsId") int newsId,
+                           @RequestParam(value = "page", defaultValue = "0") int page) {
+        List<Answer> answers=answerDAO.selectByNewsIdAndOffset(newsId,page,1);
         List<ViewObject> vos = new ArrayList<>();
         for (Answer answer : answers) {
             ViewObject v = new ViewObject();
@@ -137,15 +418,35 @@ public class HomeController {
             v.set("answer_count",answer_count);
             vos.add(v);
         }
+
         logger.warn("vos::::::::::::",vos);
         News news=newsDAO.getById(newsId);
+
+
         String[] type=news.getType().split(",");
+        List<News> newsList=new ArrayList<>();
+        for(String t : type){
+            List<News> newsAll=newsDAO.selectByType(t);
+           for(News n : newsAll){
+               newsList.add(n);
+           }
+
+
+        }
         int length=news.getLink().length();
         news.setAnCount(answerDAO.countById(news.getId()));
+        model.addAttribute("newsList",newsList);
+        model.addAttribute("page",page+1);
         model.addAttribute("vos",vos);
         model.addAttribute("news", news);
         model.addAttribute("type", type);
         model.addAttribute("length", length);
+        if (hostHolder.getUser() != null) {
+            User user = hostHolder.getUser();
+            model.addAttribute("newsNum",userDAO.countNewsById(user.getId()));
+            model.addAttribute("unReadNum",messageDAO.getConvesationUnreadCount1(user.getId()));
+            model.addAttribute("followCount",userDAO.selectByStar3(String.valueOf(newsId)).size());
+        }
 
         return "question";
     }

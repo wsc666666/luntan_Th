@@ -1,7 +1,7 @@
 package com.nowcoder.async;
 
 /**
- * Created by nowcoder on 2016/7/16.
+ * Created by hasse on 2020/4/1
  */
 public enum EventType {
     LIKE(0),
@@ -17,5 +17,12 @@ public enum EventType {
 
     public int getValue() {
         return value;
+    }
+    public String typeToString(int i){
+        if(i==0) return "赞了";
+        else if (i==1) return "评论了";
+        else if (i==2) return "登陆了";
+        else if (i==3) return "发送邮件了";
+        else return "事件未定义";
     }
 }

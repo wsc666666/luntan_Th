@@ -4,10 +4,8 @@ import com.nowcoder.async.EventModel;
 import com.nowcoder.async.EventProducer;
 import com.nowcoder.async.EventType;
 import com.nowcoder.dao.AnswerDAO;
-import com.nowcoder.model.Answer;
-import com.nowcoder.model.EntityType;
-import com.nowcoder.model.HostHolder;
-import com.nowcoder.model.News;
+import com.nowcoder.dao.UserDAO;
+import com.nowcoder.model.*;
 import com.nowcoder.service.LikeService;
 import com.nowcoder.service.NewsService;
 import com.nowcoder.util.ToutiaoUtil;
@@ -16,15 +14,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 
 /**
- * Created by nowcoder on 2016/7/13.
+ * Created by hasse on 2020/4/1
  */
 @Controller
 public class LikeController {
+    @Resource
+    UserDAO userDAO;
     @Resource
     AnswerDAO answerDAO;
     @Autowired
@@ -92,19 +93,50 @@ public class LikeController {
 //问题收藏
 @RequestMapping(path = {"/star"}, method = {RequestMethod.GET, RequestMethod.POST})
 @ResponseBody
-public String starLike(@Param("newsId") int newsId) {
-    long likeCount = likeService.star(hostHolder.getUser().getId(), EntityType.ENTITY_NEWS, newsId);
-    News news = newsService.getById(newsId);
-    eventProducer.fireEvent(new EventModel(EventType.LIKE)
-            .setActorId(hostHolder.getUser().getId()).setEntityId(newsId)
-            .setEntityType(EntityType.ENTITY_ANSWER).setEntityOwnerId(news.getUserId()));
+public String starLike(@Param("newsId") int newsId,@Param("starType") int starType) {
+    User user;
 
-    return ToutiaoUtil.getJSONString(0, String.valueOf(likeCount));
+    if (starType==0){
+    if (hostHolder.getUser() != null) {
+       user = hostHolder.getUser();
+       if(user.getStar()!=null)
+    user.setStar(user.getStar()+","+newsId);
+       else { user.setStar(""+newsId);}
+    userDAO.updateStar(user);
+
+    }}
+     if (starType==1) {
+        if (hostHolder.getUser() != null) {
+        user = hostHolder.getUser();
+        if(user.getStar2()!=null)
+        { user.setStar2(user.getStar2()+","+newsId);
+
+        }
+        else { user.setStar2(""+newsId);}
+
+
+        userDAO.updateStar2(user);
+
+    }}
+    if (starType==2) {
+        if (hostHolder.getUser() != null) {
+            user = hostHolder.getUser();
+            if(user.getStar3()!=null)
+            { user.setStar3(user.getStar3()+","+newsId);
+
+            }
+            else { user.setStar3(""+newsId);}
+
+
+            userDAO.updateStar3(user);
+
+        }}
+    return ToutiaoUtil.getJSONString(0, "ok");
 }
 
     @RequestMapping(path = {"/disStar"}, method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public String starDislike(@Param("newsId") int newsId) {
+    public String starDislike(@RequestParam("newsId") int newsId) {
 
 
         long likeCount = likeService.disStar(hostHolder.getUser().getId(), EntityType.ENTITY_NEWS, newsId);

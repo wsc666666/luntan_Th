@@ -16,8 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 /**
- * Created by nowcoder on 2016/7/3.
+ * Created by hasse on 2020/4/1
  */
+
 @Component
 public class PassportInterceptor implements HandlerInterceptor {
 
@@ -31,7 +32,9 @@ public class PassportInterceptor implements HandlerInterceptor {
     private HostHolder hostHolder;
 
     @Override
-    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+    public boolean preHandle(HttpServletRequest httpServletRequest,
+                             HttpServletResponse httpServletResponse,
+                             Object o) throws Exception {
         String ticket = null;
         if (httpServletRequest.getCookies() != null) {
             for (Cookie cookie : httpServletRequest.getCookies()) {

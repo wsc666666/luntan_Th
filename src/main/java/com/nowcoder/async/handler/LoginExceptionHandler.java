@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 /**
- * Created by nowcoder on 2016/7/16.
+ * Created by hasse on 2020/4/1
  */
 @Component
 public class LoginExceptionHandler implements EventHandler {
@@ -31,7 +31,7 @@ public class LoginExceptionHandler implements EventHandler {
         message.setContent("你上次的登陆ip异常");
         message.setFromId(3);
         message.setCreatedDate(new Date());
-        messageService.addMessage(message);
+      //  messageService.addMessage(message);
 
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("username", model.getExt("username"));
